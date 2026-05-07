@@ -784,15 +784,97 @@ header::after {
 /* ── Responsive ── */
 @media(max-width:860px) {
   .loc-grid        { grid-template-columns: repeat(3, 1fr); gap:12px; }
-  .map-select-grid { grid-template-columns: repeat(2, 1fr); max-width: 860px; }
+  .map-select-grid { grid-template-columns: repeat(3, 1fr); height: auto; }
+  .game-select-grid{ height: auto; }
   h1 { font-size:2rem; }
-  .stats-bar { gap:30px; }
 }
+
+@media(max-width:768px) {
+  .content { padding: 0 12px 60px; }
+
+  /* selectors: auto height, scroll if needed */
+  .game-select-grid {
+    grid-template-columns: repeat(3, 1fr);
+    height: auto;
+    gap: 12px;
+  }
+  .game-card { height: 180px; }
+
+  .map-select-grid {
+    grid-template-columns: repeat(3, 1fr);
+    height: auto;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .map-card { height: auto; }
+  .map-card-img { aspect-ratio: 4/3; flex: none; }
+
+  /* drop grid: wrap into multiple rows */
+  .drop-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    gap: 8px;
+  }
+  .drop-card   { padding: 14px 8px 10px; }
+  .drop-icon   { width: 56px; height: 56px; }
+  .drop-name   { font-size: .6rem; letter-spacing: 1px; }
+  .drop-badge  { font-size: .65rem; width: 20px; height: 20px; top: 6px; right: 6px; }
+
+  .drop-toggles { gap: 8px; }
+  .toggle-btn   { font-size: .62rem; padding: 6px 10px; letter-spacing: 1px; }
+
+  /* box locations */
+  .loc-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .card-name { font-size: .58rem; }
+
+  /* boss tracker */
+  .boss-current-val { font-size: 2rem; }
+  .boss-upcoming-box { padding: 8px 0; font-size: .85rem; min-width: 70px; }
+
+  /* stats bar */
+  .tracker-stats { gap: 24px; padding: 10px 14px; }
+  .stat-val      { font-size: 1rem; }
+
+  /* buttons */
+  .btn  { font-size: .72rem; padding: 8px 18px; }
+  .btn-back { font-size: .7rem; padding: 6px 12px; }
+
+  h1 { font-size: 1.6rem; }
+}
+
 @media(max-width:480px) {
-  .loc-grid        { grid-template-columns: repeat(2, 1fr); gap:8px; }
-  .map-select-grid { grid-template-columns: repeat(2, 1fr); }
-  h1 { font-size:1.45rem; letter-spacing:1px; }
-  .stats-bar { gap:16px; }
-  .stat-val { font-size:1.3rem; }
-  .btn-back { top:12px; left:12px; font-size:.7rem; padding:5px 10px; }
+  .content { padding: 0 8px 50px; }
+
+  .game-select-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .game-card { height: 140px; }
+  .game-num  { font-size: 2rem; }
+  .game-label { font-size: .85rem; }
+  .game-zombies { font-size: .7rem; }
+
+  .map-select-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  .drop-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    gap: 6px;
+  }
+  .drop-icon  { width: 44px; height: 44px; }
+  .drop-name  { font-size: .52rem; }
+
+  .loc-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+
+  .tracker-stats { gap: 14px; padding: 8px 10px; }
+  .stat-lbl  { font-size: .5rem; letter-spacing: 1.5px; }
+  .stat-val  { font-size: .9rem; }
+
+  .boss-input-block, .boss-upcoming-block { padding: 12px; }
+  .boss-input-row { flex-wrap: wrap; justify-content: center; }
+  .boss-upcoming-box { min-width: 60px; font-size: .75rem; }
+
+  .calc-row { gap: 8px; }
+  .calc-input, .calc-select { font-size: .75rem; padding: 6px 8px; }
+  .calc-stepper .calc-step-btn { padding: 6px 7px; font-size: .7rem; }
+
+  h1 { font-size: 1.3rem; letter-spacing: 1px; }
+  .btn-back { font-size: .65rem; padding: 5px 9px; }
 }
