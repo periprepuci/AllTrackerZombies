@@ -153,7 +153,7 @@ header::after {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(2,2,6,.7);
-  margin-bottom: 4px;
+  margin-bottom: 18px;
 }
 .stat { text-align: center; }
 .stat-lbl {
@@ -570,7 +570,7 @@ header::after {
 /* ── Map selector grid ── */
 .map-select-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 18px;
   margin: 4px auto 40px;
   height: calc(100vh - 260px);
@@ -784,7 +784,7 @@ header::after {
 /* ── Responsive ── */
 @media(max-width:860px) {
   .loc-grid        { grid-template-columns: repeat(3, 1fr); gap:12px; }
-  .map-select-grid { grid-template-columns: repeat(3, 1fr); height: auto; }
+  .map-select-grid { grid-template-columns: repeat(5, 1fr); height: auto; }
   .game-select-grid{ height: auto; }
   h1 { font-size:2rem; }
 }
@@ -801,7 +801,7 @@ header::after {
   .game-card { height: 180px; }
 
   .map-select-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     height: auto;
     gap: 10px;
     margin-bottom: 24px;

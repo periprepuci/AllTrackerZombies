@@ -216,6 +216,13 @@ const MAPS = [
       { id:'catwalk',   name:'Catwalk',    img: gh('Der Riese', 'Catwalk')   },
     ],
   },
+  {
+    id: 'nacht', name: 'Nacht der Untoten',
+    thumb: 'imagenes/nacht_thumb.jpg',
+    caps: { fs: false, dm: false },
+    boss: { type: 'none' },
+    locs: [],
+  },
 ];
 
 // ─── Game selector ───────────────────────────────────────────────────────────
@@ -317,7 +324,7 @@ function buildMapSelector() {
       </div>
       <div class="map-card-footer">
         <span class="map-card-name">${map.name}</span>
-        <span class="map-card-info">${map.locs.length} locations · ${cycles} cycle${cycles !== 1 ? 's' : ''}</span>
+        <span class="map-card-info">${map.locs.length ? map.locs.length + ' locations · ' + cycles + ' cycle' + (cycles !== 1 ? 's' : '') : 'Drops only'}</span>
       </div>`;
     el.addEventListener('click', () => selectMap(map.id));
     grid.appendChild(el);
@@ -351,6 +358,11 @@ function selectMap(id) {
   document.getElementById('btnMinDrop').textContent    = '▲';
   document.getElementById('btnMinSpecial').textContent = '▲';
   document.getElementById('btnMinBox').textContent     = '▲';
+
+  // show/hide box section based on whether map has locations
+  const hasBox = currentMap.locs.length > 0;
+  document.getElementById('boxSecTitle').style.display  = hasBox ? '' : 'none';
+  document.getElementById('boxCycleBody').style.display = hasBox ? '' : 'none';
 
   // reset toggles to ON by default and update button visibility
   toggles = { carp: true, fs: true, dm: true };
