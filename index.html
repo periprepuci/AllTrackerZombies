@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Box Cycle Tracker — BO1 Zombies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="full-band">
+  <header>
+
+    <button class="btn-back" id="btnBack" style="display:none">← Maps</button>
+
+    <div class="header-emblem">
+      <div class="emblem-outer"></div>
+      <div class="emblem-inner">
+        <span class="emblem-skull">☠</span>
+      </div>
+    </div>
+
+    <p class="op-label" id="opLabel" style="visibility:hidden">— &nbsp; Black Ops 1 &nbsp; —</p>
+    <h1 class="map-title" id="mapTitle">ZOMBIES TRACKER</h1>
+
+  </header>
+</div>
+
+<div class="content">
+
+  <!-- Game selector screen -->
+  <div id="screenGame">
+    <p class="sec-title">Select a Game</p>
+    <div class="game-select-grid" id="gameSelectGrid"></div>
+  </div>
+
+  <!-- Map selector screen -->
+  <div id="screenSelect" style="display:none">
+    <p class="sec-title">Select a Map</p>
+    <div class="map-select-grid" id="mapSelectGrid"></div>
+  </div>
+
+  <!-- Tracker screen -->
+  <div id="screenTracker" style="display:none">
+
+    <!-- ── Drop Cycle ── -->
+    <p class="sec-title">Drop Cycle <button class="btn-minimize" id="btnMinDrop" title="Minimize">▲</button></p>
+
+    <div id="dropCycleBody">
+      <div class="drop-toggles">
+        <button class="toggle-btn" id="toggleCarp">Carpenters?</button>
+        <button class="toggle-btn" id="toggleSales">Sales?</button>
+        <button class="toggle-btn" id="togglePower">Power or QR?</button>
+      </div>
+
+      <div class="drop-grid" id="dropGrid"></div>
+
+      <div class="controls">
+        <button class="btn btn-reset" id="btnDropReset">⟳&ensp;Clear Drops</button>
+        <button class="btn btn-hist"  id="btnDropHist">▼&ensp;Drop History</button>
+      </div>
+      <div class="history-wrap" id="dropHistWrap">
+        <div class="history-head">
+          <span class="history-title">Last 20 Drop Cycles</span>
+          <span class="history-cnt" id="dropHistCnt">0 cycles</span>
+        </div>
+        <div class="history-list" id="dropHistList">
+          <div class="h-empty"><span>📋</span>No completed drop cycles yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Box Cycle ── -->
+    <p class="sec-title">Mystery Box Locations <button class="btn-minimize" id="btnMinBox" title="Minimize">▲</button></p>
+
+    <div id="boxCycleBody">
+      <div class="tracker-stats" id="statsBar">
+        <div class="stat">
+          <span class="stat-lbl">Current Cycle</span>
+          <span class="stat-val" id="statCycle">1</span>
+        </div>
+        <div class="stat">
+          <span class="stat-lbl">Visited</span>
+          <span class="stat-val" id="statVisited">0&thinsp;/&thinsp;0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-lbl">Completed Cycles</span>
+          <span class="stat-val" id="statDone">0</span>
+        </div>
+      </div>
+      <div class="loc-grid" id="locGrid"></div>
+
+      <div class="controls">
+        <button class="btn btn-reset" id="btnReset">⟳&ensp;Reset Cycle</button>
+        <button class="btn btn-hist"  id="btnHist">▼&ensp;Cycle History</button>
+      </div>
+
+      <div class="history-wrap" id="histWrap">
+        <div class="history-head">
+          <span class="history-title">Last 20 Cycles</span>
+          <span class="history-cnt" id="histCnt">0 cycles</span>
+        </div>
+        <div class="history-list" id="histList">
+          <div class="h-empty"><span>📋</span>No completed cycles yet</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">
+  <span class="toast-ico">✓</span>
+  <span class="toast-txt" id="toastTxt">Cycle complete</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
