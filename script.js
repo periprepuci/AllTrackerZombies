@@ -459,6 +459,12 @@ function selectMap(id) {
   renderCards();
   updateStats();
   renderHistory();
+
+  // refresh calculators with current map context
+  ['c1p','c2p','c3p','c4p','c5p'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.dispatchEvent(new Event('input'));
+  });
 }
 
 function goBack() {
