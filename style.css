@@ -10,7 +10,7 @@
   --red-glow:     rgba(255,34,85,.32);
   --gold:         #ffe600;
   --blue:         #5599ff;
-  --muted:        #525270;
+  --muted:        #a0aac8;
   --border:       #18182e;
   --border-hi:    #2e2e55;
   --text:         #dde0f0;
@@ -157,7 +157,7 @@ header::after {
 }
 .stat { text-align: center; }
 .stat-lbl {
-  display: block; font-size: .6rem; letter-spacing: 2.5px;
+  display: block; font-size: .68rem; letter-spacing: 2.5px;
   color: var(--muted); text-transform: uppercase; margin-bottom: 3px;
 }
 .stat-val {
@@ -175,7 +175,7 @@ header::after {
 /* ── Section title ── */
 .sec-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: .63rem; letter-spacing: 4px; color: var(--muted);
+  font-size: .72rem; letter-spacing: 4px; color: var(--muted);
   text-transform: uppercase;
   display: flex; align-items: center; gap: 12px;
   margin: 10px 0 8px;
@@ -350,7 +350,7 @@ header::after {
   display:flex; align-items:center; justify-content:space-between;
   padding: 28px 0 18px;
 }
-.history-title { font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:4px; color:var(--muted); text-transform:uppercase; }
+.history-title { font-family:'Orbitron',sans-serif; font-size:.73rem; letter-spacing:4px; color:var(--muted); text-transform:uppercase; }
 .history-cnt   { font-size:.7rem; color:var(--muted); letter-spacing:1px; }
 
 .history-list { display:flex; flex-direction:column; gap:10px; }
@@ -657,7 +657,7 @@ header::after {
 }
 .boss-current-lbl {
   font-family: 'Orbitron', sans-serif;
-  font-size: .52rem; font-weight: 700; letter-spacing: 3px;
+  font-size: .62rem; font-weight: 700; letter-spacing: 3px;
   color: var(--muted); text-transform: uppercase;
 }
 .boss-current-val {
@@ -669,7 +669,7 @@ header::after {
   display: flex; align-items: center; gap: 12px;
   padding: 0 20px;
   font-family: 'Orbitron', sans-serif;
-  font-size: .52rem; letter-spacing: 6px;
+  font-size: .62rem; letter-spacing: 6px;
   color: rgba(255,255,255,.12);
 }
 .boss-divider::before, .boss-divider::after {
@@ -681,7 +681,7 @@ header::after {
 }
 .boss-section-lbl {
   font-family: 'Orbitron', sans-serif;
-  font-size: .52rem; font-weight: 700; letter-spacing: 3px;
+  font-size: .62rem; font-weight: 700; letter-spacing: 3px;
   color: var(--muted); text-transform: uppercase;
 }
 .boss-input-row { display: flex; gap: 10px; align-items: center; }
@@ -730,7 +730,7 @@ header::after {
 .calc-item-header {
   width: 100%; display: flex; align-items: center; justify-content: space-between;
   padding: 12px 18px; background: rgba(2,2,6,.7); border: none; cursor: pointer;
-  font-family: 'Orbitron', sans-serif; font-size: .6rem; font-weight: 700;
+  font-family: 'Orbitron', sans-serif; font-size: .68rem; font-weight: 700;
   letter-spacing: 2.5px; color: var(--muted); text-transform: uppercase; text-align: left;
   transition: color var(--t), background var(--t);
 }
@@ -745,7 +745,7 @@ header::after {
 .calc-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 12px; }
 .calc-field { display: flex; flex-direction: column; gap: 5px; }
 .calc-label {
-  font-family: 'Orbitron', sans-serif; font-size: .48rem; letter-spacing: 2px;
+  font-family: 'Orbitron', sans-serif; font-size: .57rem; letter-spacing: 2px;
   color: var(--muted); text-transform: uppercase;
 }
 .calc-input, .calc-select {
@@ -774,7 +774,7 @@ header::after {
 }
 .calc-res-item { display: flex; flex-direction: column; gap: 3px; }
 .calc-res-lbl {
-  font-family: 'Orbitron', sans-serif; font-size: .46rem; letter-spacing: 2.5px;
+  font-family: 'Orbitron', sans-serif; font-size: .55rem; letter-spacing: 2.5px;
   color: var(--muted); text-transform: uppercase;
 }
 .calc-res-val {
@@ -864,7 +864,7 @@ header::after {
   .loc-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
 
   .tracker-stats { gap: 14px; padding: 8px 10px; }
-  .stat-lbl  { font-size: .5rem; letter-spacing: 1.5px; }
+  .stat-lbl  { font-size: .57rem; letter-spacing: 1.5px; }
   .stat-val  { font-size: .9rem; }
 
   .boss-input-block, .boss-upcoming-block { padding: 12px; }
