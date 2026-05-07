@@ -66,9 +66,22 @@ const ZC=[
 [5922,11820,23616,35413],[5968,11912,23801,35690],[6014,12005,23987,35968],[6061,12098,24173,36247],[6108,12192,24360,36528]
 ];
 
-function zombiesOn(r,p){return r>=1&&r<=ZC.length?ZC[r-1][p-1]:null;}
+// WaW exact values rounds 1-10 (excl. Der Riese which follows BO1)
+const ZC_WAW=[
+  [4,6,7,8],[9,12,14,16],[14,18,21,25],[19,24,28,33],[24,30,36,42],
+  [24,31,38,45],[24,32,40,49],[24,33,43,52],[24,34,45,56],[24,42,60,78],
+];
+function zombiesOnBO1(r,p){return r>=1&&r<=ZC.length?ZC[r-1][p-1]:null;}
+function zombiesOn(r,p){
+  if(currentMap&&(currentMap.game??'bo1')==='waw'&&currentMap.id!=='waw_derriese'){
+    if(r>=1&&r<=ZC_WAW.length) return ZC_WAW[r-1][p-1];
+    if(p===1) return 24;
+    return zombiesOnBO1(r,p);
+  }
+  return zombiesOnBO1(r,p);
+}
 function hordesOn(r,p){const z=zombiesOn(r,p);return z!==null?z/24:null;}
-function zombiesUpTo(r,p){let t=0;for(let i=1;i<=Math.min(r,ZC.length);i++)t+=ZC[i-1][p-1];return t;}
+function zombiesUpTo(r,p){let t=0;for(let i=1;i<=r;i++){const z=zombiesOn(i,p);if(z===null)break;t+=z;}return t;}
 function fmtTime(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return h>0?`${h}h ${m}m ${sc}s`:m>0?`${m}m ${sc}s`:`${sc}s`;}
 function parseT(h,m,s){return(parseInt(h)||0)*3600+(parseInt(m)||0)*60+(parseInt(s)||0);}
 
