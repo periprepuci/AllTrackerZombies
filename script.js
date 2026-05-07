@@ -324,6 +324,8 @@ function selectGame(id) {
   document.getElementById('screenGame').style.display    = 'none';
   document.getElementById('screenSelect').style.display  = '';
   document.getElementById('mapTitle').textContent        = GAME_TITLES[id] || id.toUpperCase();
+  const opLabels = { bo1: 'Black Ops 1', waw: 'World at War' };
+  document.getElementById('opLabel').textContent        = '—   ' + (opLabels[id] || id) + '   —';
   document.getElementById('opLabel').style.visibility   = 'visible';
   document.getElementById('btnBack').style.display      = 'inline-flex';
   document.getElementById('btnBack').textContent        = '← Games';
