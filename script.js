@@ -67,7 +67,7 @@ const ZC=[
 ];
 
 function zombiesOn(r,p){return r>=1&&r<=ZC.length?ZC[r-1][p-1]:null;}
-function hordesOn(r,p){const z=zombiesOn(r,p);return z!==null?Math.ceil(z/24):null;}
+function hordesOn(r,p){const z=zombiesOn(r,p);return z!==null?z/24:null;}
 function zombiesUpTo(r,p){let t=0;for(let i=1;i<=Math.min(r,ZC.length);i++)t+=ZC[i-1][p-1];return t;}
 function fmtTime(s){s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return h>0?`${h}h ${m}m ${sc}s`:m>0?`${m}m ${sc}s`:`${sc}s`;}
 function parseT(h,m,s){return(parseInt(h)||0)*3600+(parseInt(m)||0)*60+(parseInt(s)||0);}
@@ -223,10 +223,59 @@ const MAPS = [
     boss: { type: 'none' },
     locs: [],
   },
+  // ── World at War maps ──
+  {
+    id: 'waw_nacht', name: 'Nacht der Untoten',
+    thumb: 'imagenes/nacht_thumb.jpg',
+    game: 'waw',
+    caps: { fs: false, dm: false, carp: false },
+    boss: { type: 'none' },
+    locs: [],
+  },
+  {
+    id: 'waw_verruckt', name: 'Verrückt',
+    thumb: gh('Verruckt', 'thumbnail'),
+    game: 'waw',
+    caps: { fs: false, dm: false, carp: false },
+    boss: { type: 'none' },
+    locs: [],
+  },
+  {
+    id: 'waw_shinuma', name: 'Shi No Numa',
+    thumb: gh('Shi No Numa', 'thumbnail'),
+    game: 'waw',
+    caps: { fs: false, dm: false, carp: false },
+    boss: { type: 'dogs', firstMin: 5, firstMax: 8, cycleMin: 4, cycleMax: 5 },
+    locs: [
+      { id:'thompson', name:'Thompson',          img: gh('Shi No Numa', 'Thompson')         },
+      { id:'carbine',  name:'Carbine',           img: gh('Shi No Numa', 'Carbine')          },
+      { id:'storage',  name:'Storage',           img: gh('Shi No Numa', 'Storage')          },
+      { id:'commroom', name:'Comm Room',         img: gh('Shi No Numa', 'Comm Room')        },
+      { id:'fishing',  name:'Fishing Hut',       img: gh('Shi No Numa', 'Fishing Hut')      },
+      { id:'doctors',  name:"Doctor's Quarters", img: gh('Shi No Numa', 'Doctors Quarters') },
+    ],
+  },
+  {
+    id: 'waw_derriese', name: 'Der Riese',
+    thumb: gh('Der Riese', 'thumbnail'),
+    game: 'waw',
+    caps: { fs: false, dm: false },
+    boss: { type: 'dogs', firstMin: 5, firstMax: 8, cycleMin: 4, cycleMax: 5 },
+    locs: [
+      { id:'tommy',     name:'Tommy',      img: gh('Der Riese', 'Tommy')     },
+      { id:'power',     name:'Power',      img: gh('Der Riese', 'Power')     },
+      { id:'type100',   name:'Type 100',   img: gh('Der Riese', 'Type 100')  },
+      { id:'trenchgun', name:'Trench Gun', img: gh('Der Riese', 'Trench Gun')},
+      { id:'mp40',      name:'MP40',       img: gh('Der Riese', 'MP40')      },
+      { id:'catwalk',   name:'Catwalk',    img: gh('Der Riese', 'Catwalk')   },
+    ],
+  },
 ];
 
 // ─── Game selector ───────────────────────────────────────────────────────────
 const GAMES = [
+  { id:'waw', label:'World at War', num:'', year:'2008', available: true,
+    gradient: 'radial-gradient(ellipse at 50% 0%, rgba(140,100,20,.55) 0%, rgba(5,4,2,.97) 65%)' },
   { id:'bo1', label:'Black Ops', num:'I',   year:'2010', available: true,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(200,30,30,.5) 0%, rgba(8,4,4,.97) 65%)' },
   { id:'bo2', label:'Black Ops', num:'II',  year:'2012', available: false,
@@ -244,7 +293,7 @@ function buildGameSelector() {
     el.style.background = game.gradient;
     el.innerHTML = `
       <div class="game-card-inner">
-        <span class="game-num">${game.num}</span>
+        ${game.num ? `<span class="game-num">${game.num}</span>` : ''}
         <span class="game-label">${game.label}</span>
         <span class="game-zombies">Zombies</span>
         <span class="game-year">${game.year}</span>
@@ -255,10 +304,13 @@ function buildGameSelector() {
   });
 }
 
+const GAME_TITLES = { bo1: 'BLACK OPS 1', waw: 'WORLD AT WAR' };
+
 function selectGame(id) {
+  currentGame = id;
   document.getElementById('screenGame').style.display    = 'none';
   document.getElementById('screenSelect').style.display  = '';
-  document.getElementById('mapTitle').textContent        = 'BLACK OPS 1';
+  document.getElementById('mapTitle').textContent        = GAME_TITLES[id] || id.toUpperCase();
   document.getElementById('opLabel').style.visibility   = 'visible';
   document.getElementById('btnBack').style.display      = 'inline-flex';
   document.getElementById('btnBack').textContent        = '← Games';
@@ -277,7 +329,8 @@ function getMS(id) {
 }
 
 // ─── Box tracker state ────────────────────────────────────────────────────────
-let currentMap = null;
+let currentGame = 'bo1';
+let currentMap  = null;
 let stMap    = {};
 let visitOrd = {};
 let route    = [];
@@ -312,7 +365,7 @@ function resetDropState() {
 function buildMapSelector() {
   const grid = document.getElementById('mapSelectGrid');
   grid.innerHTML = '';
-  MAPS.forEach(map => {
+  MAPS.filter(m => (m.game ?? 'bo1') === currentGame).forEach(map => {
     const ms     = getMS(map.id);
     const cycles = ms.cycleNum - 1;
     const el     = document.createElement('div');
@@ -365,10 +418,13 @@ function selectMap(id) {
   document.getElementById('boxCycleBody').style.display = hasBox ? '' : 'none';
 
   // reset toggles to ON by default and update button visibility
-  toggles = { carp: true, fs: true, dm: true };
+  const hasCarp = currentMap.caps.carp !== false;
+  toggles = { carp: hasCarp, fs: true, dm: true };
   ['toggleCarp','toggleSales','togglePower'].forEach(bid =>
     document.getElementById(bid).classList.add('active')
   );
+  if (!hasCarp) document.getElementById('toggleCarp').classList.remove('active');
+  document.getElementById('toggleCarp').style.display = hasCarp ? '' : 'none';
   document.getElementById('toggleSales').style.display = currentMap.caps.fs ? '' : 'none';
   document.getElementById('togglePower').style.display = currentMap.caps.dm ? '' : 'none';
 
@@ -393,7 +449,7 @@ function goBack() {
   if (currentMap) {
     // Tracker → Map selector
     currentMap = null;
-    document.getElementById('mapTitle').textContent   = 'BLACK OPS 1';
+    document.getElementById('mapTitle').textContent   = GAME_TITLES[currentGame] || currentGame.toUpperCase();
     document.getElementById('btnBack').textContent    = '← Games';
     document.getElementById('screenTracker').style.display = 'none';
     document.getElementById('screenSelect').style.display  = '';
@@ -835,7 +891,7 @@ function buildC1(el) {
       <div class="calc-res-item"><span class="calc-res-lbl">Hordes</span><span class="calc-res-val" id="c1h">—</span></div>
       <div class="calc-res-item"><span class="calc-res-lbl">Cumulative</span><span class="calc-res-val" id="c1c">—</span></div>
     </div>`;
-  const upd = () => { const p=+document.getElementById('c1p').value, r=+document.getElementById('c1r').value; if(!r) return; document.getElementById('c1z').textContent=zombiesOn(r,p)??'—'; document.getElementById('c1h').textContent=hordesOn(r,p)??'—'; document.getElementById('c1c').textContent=zombiesUpTo(r,p).toLocaleString(); };
+  const upd = () => { const p=+document.getElementById('c1p').value, r=+document.getElementById('c1r').value; if(!r) return; document.getElementById('c1z').textContent=zombiesOn(r,p)??'—'; const h=hordesOn(r,p); document.getElementById('c1h').textContent=h!==null?+h.toFixed(2):'—'; document.getElementById('c1c').textContent=zombiesUpTo(r,p).toLocaleString(); };
   const step = n => { const inp=document.getElementById('c1r'); inp.value=Math.max(1,Math.min(260,(+inp.value||1)+n)); upd(); };
   ['c1p','c1r'].forEach(id => { document.getElementById(id).addEventListener('input', upd); document.getElementById(id).addEventListener('change', upd); });
   document.getElementById('c1m5').addEventListener('click', () => step(-5));
@@ -894,7 +950,7 @@ function buildC4(el) {
       <div class="calc-res-item"><span class="calc-res-lbl">Total Time</span><span class="calc-res-val" id="c4t">—</span></div>
       <div class="calc-res-item"><span class="calc-res-lbl">Total Hordes</span><span class="calc-res-val" id="c4h">—</span></div>
     </div>`;
-  const upd = () => { const p=+document.getElementById('c4p').value, sph=+document.getElementById('c4sph').value, a=+document.getElementById('c4a').value, b=+document.getElementById('c4b').value; if(!sph||!a||!b||a>b){document.getElementById('c4t').textContent='—';document.getElementById('c4h').textContent='—';return;} let th=0; for(let r=a;r<=Math.min(b,ZC.length);r++) th+=hordesOn(r,p); document.getElementById('c4t').textContent=fmtTime(th*sph); document.getElementById('c4h').textContent=th.toLocaleString(); };
+  const upd = () => { const p=+document.getElementById('c4p').value, sph=+document.getElementById('c4sph').value, a=+document.getElementById('c4a').value, b=+document.getElementById('c4b').value; if(!sph||!a||!b||a>b){document.getElementById('c4t').textContent='—';document.getElementById('c4h').textContent='—';return;} let th=0; for(let r=a;r<=Math.min(b,ZC.length);r++) th+=hordesOn(r,p); document.getElementById('c4t').textContent=fmtTime(th*sph); document.getElementById('c4h').textContent=+th.toFixed(2); };
   ['c4p','c4sph','c4a','c4b'].forEach(id => { document.getElementById(id).addEventListener('input', upd); document.getElementById(id).addEventListener('change', upd); });
   upd();
 }
