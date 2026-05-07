@@ -365,7 +365,10 @@ function resetDropState() {
 function buildMapSelector() {
   const grid = document.getElementById('mapSelectGrid');
   grid.innerHTML = '';
-  MAPS.filter(m => (m.game ?? 'bo1') === currentGame).forEach(map => {
+  const gameMaps = MAPS.filter(m => (m.game ?? 'bo1') === currentGame);
+  const cols = gameMaps.length <= 4 ? gameMaps.length : 5;
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  gameMaps.forEach(map => {
     const ms     = getMS(map.id);
     const cycles = ms.cycleNum - 1;
     const el     = document.createElement('div');
