@@ -97,8 +97,7 @@ const BOSS = {
 };
 
 // ─── Map & Location data ──────────────────────────────────────────────────────
-const BASE = 'https://evelynyuki.github.io/box-cycle-tracker/img/';
-const gh = (map, loc) => BASE + map + '/' + loc + '.webp';
+const gh = (map, loc) => `imagenes/maps/${map}/${loc}.webp`;
 
 // caps.fs  → map has Fire Sale drop
 // caps.dm  → map has Death Machine drop
