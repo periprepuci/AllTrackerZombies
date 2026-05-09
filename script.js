@@ -230,7 +230,7 @@ const MAPS = [
   },
   {
     id: 'nacht', name: 'Nacht der Untoten',
-    thumb: 'imagenes/nacht_thumb.jpg',
+    thumb: 'imagenes/maps/Nacht der Untoten/thumbnail.jpg',
     caps: { fs: false, dm: false },
     boss: { type: 'none' },
     locs: [],
@@ -238,7 +238,7 @@ const MAPS = [
   // ── World at War maps ──
   {
     id: 'waw_nacht', name: 'Nacht der Untoten',
-    thumb: 'imagenes/nacht_thumb.jpg',
+    thumb: 'imagenes/maps/Nacht der Untoten/thumbnail.jpg',
     game: 'waw',
     caps: { fs: false, dm: false, carp: false },
     boss: { type: 'none' },
