@@ -646,6 +646,8 @@ function onLocClick(id) {
     stMap[id] = 'default';
     route = route.filter(r => r !== id);
     delete visitOrd[id];
+    route.forEach((rid, i) => { visitOrd[rid] = i + 1; });
+    counter = route.length;
   }
   renderCards();
   updateStats();
