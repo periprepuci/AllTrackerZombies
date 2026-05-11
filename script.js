@@ -1,4 +1,4 @@
-// ─── Drop definitions ─────────────────────────────────────────────────────────
+﻿// ─── Drop definitions ─────────────────────────────────────────────────────────
 const ZIMG = 'https://www.zombacus.com/images/icons/';
 const DR = {
   ammo:  { id:'ammo',  name:'Max Ammo',       img: ZIMG+'ammo.png'  },
@@ -8,6 +8,7 @@ const DR = {
   carp:  { id:'carp',  name:'Carpenter',       img: ZIMG+'carp.png'  },
   fs:    { id:'fs',    name:'Fire Sale',       img: ZIMG+'fs.png'    },
   dm:    { id:'dm',    name:'Death Machine',   img: ZIMG+'dm.png'    },
+  zb:    { id:'zb',   name:'Zombie Blood',    img: ZIMG+'zb.png'    },
 };
 
 // ─── Zombie count lookup table [p1,p2,p3,p4] per round ───────────────────────
@@ -235,6 +236,16 @@ const MAPS = [
     boss: { type: 'none' },
     locs: [],
   },
+  // ── Black Ops 2 maps ──
+  { id:'bo2_busdepot', name:'Bus Depot',         game:'bo2', thumb:'imagenes/maps/Bus Depot/thumbnail.jpg',         caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_tranzit',  name:'TranZit',          game:'bo2', thumb:'imagenes/maps/TranZit/thumbnail.webp',          thumbPos:'80% center', caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_town',     name:'Town',              game:'bo2', thumb:'imagenes/maps/Town/thumbnail.jpg',              caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_farm',     name:'Farm',              game:'bo2', thumb:'imagenes/maps/Farm/thumbnail.webp',              caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_nuketown', name:'Nuketown Zombies',  game:'bo2', thumb:'imagenes/maps/Nuketown Zombies/thumbnail.webp',  caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_dierise',  name:'Die Rise',          game:'bo2', thumb:'imagenes/maps/Die Rise/thumbnail.webp',          caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_motd',     name:'Mob of the Dead',   game:'bo2', thumb:'imagenes/maps/Mob of the Dead/thumbnail.webp',   caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_buried',   name:'Buried',            game:'bo2', thumb:'imagenes/maps/Buried/thumbnail.jpg',            caps:{fs:true,dm:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_origins',  name:'Origins',           game:'bo2', thumb:'imagenes/maps/Origins/thumbnail.webp',           caps:{fs:true,dm:false,zb:true}, boss:{type:'none'}, locs:[] },
   // ── World at War maps ──
   {
     id: 'waw_nacht', name: 'Nacht der Untoten',
@@ -290,7 +301,7 @@ const GAMES = [
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(140,100,20,.55) 0%, rgba(5,4,2,.97) 65%)' },
   { id:'bo1', label:'Black Ops', num:'I',   year:'2010', available: true,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(200,30,30,.5) 0%, rgba(8,4,4,.97) 65%)' },
-  { id:'bo2', label:'Black Ops', num:'II',  year:'2012', available: false,
+  { id:'bo2', label:'Black Ops', num:'II',  year:'2012', available: true,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(20,130,150,.45) 0%, rgba(4,10,14,.97) 65%)' },
   { id:'bo3', label:'Black Ops', num:'III', year:'2015', available: false,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(90,30,200,.45) 0%, rgba(5,4,16,.97) 65%)' },
@@ -316,14 +327,14 @@ function buildGameSelector() {
   });
 }
 
-const GAME_TITLES = { bo1: 'BLACK OPS 1', waw: 'WORLD AT WAR' };
+const GAME_TITLES = { bo1: 'BLACK OPS 1', waw: 'WORLD AT WAR', bo2: 'BLACK OPS 2' };
 
 function selectGame(id) {
   currentGame = id;
   document.getElementById('screenGame').style.display    = 'none';
   document.getElementById('screenSelect').style.display  = '';
-  document.getElementById('mapTitle').textContent        = GAME_TITLES[id] || id.toUpperCase();
-  const opLabels = { bo1: 'Black Ops 1', waw: 'World at War' };
+  document.getElementById('mapTitle').textContent        = 'ZOMBIES TRACKER';
+  const opLabels = { bo1: 'Black Ops 1', waw: 'World at War', bo2: 'Black Ops 2' };
   document.getElementById('opLabel').textContent        = '—   ' + (opLabels[id] || id) + '   —';
   document.getElementById('opLabel').style.visibility   = 'visible';
   document.getElementById('btnBack').style.display      = 'inline-flex';
@@ -367,6 +378,7 @@ function getActiveDrops() {
   if (toggles.carp)                       list.push(DR.carp);
   if (toggles.fs  && currentMap.caps.fs)  list.push(DR.fs);
   if (toggles.dm  && currentMap.caps.dm)  list.push(DR.dm);
+  if (currentMap.caps.zb)                 list.push(DR.zb);
   return list;
 }
 
@@ -389,7 +401,7 @@ function buildMapSelector() {
     el.className = 'map-card';
     el.innerHTML = `
       <div class="map-card-img">
-        <img src="${map.thumb}" alt="${map.name}" draggable="false">
+        <img src="${map.thumb}" alt="${map.name}" draggable="false"${map.thumbPos ? ` style="object-position:${map.thumbPos}"` : ''}>
         <div class="img-tint"></div>
       </div>
       <div class="map-card-footer">
@@ -443,14 +455,14 @@ function selectMap(id) {
 
   // reset toggles to ON by default and update button visibility
   const hasCarp = currentMap.caps.carp !== false;
-  toggles = { carp: hasCarp, fs: true, dm: true };
+  toggles = { carp: false, fs: false, dm: false };
   ['toggleCarp','toggleSales','togglePower'].forEach(bid =>
-    document.getElementById(bid).classList.add('active')
+    document.getElementById(bid).classList.remove('active')
   );
-  if (!hasCarp) document.getElementById('toggleCarp').classList.remove('active');
-  document.getElementById('toggleCarp').style.display = hasCarp ? '' : 'none';
-  document.getElementById('toggleSales').style.display = currentMap.caps.fs ? '' : 'none';
-  document.getElementById('togglePower').style.display = currentMap.caps.dm ? '' : 'none';
+  document.getElementById('toggleCarp').style.display  = hasCarp             ? '' : 'none';
+  document.getElementById('toggleSales').style.display = currentMap.caps.fs  ? '' : 'none';
+  document.getElementById('togglePower').style.display = currentMap.caps.dm  ? '' : 'none';
+  document.getElementById('togglePower').textContent   = 'Power or QR?';
 
   // loc-grid columns
   const cols = currentMap.locs.length >= 9 ? 5 : 4;
@@ -479,7 +491,7 @@ function goBack() {
   if (currentMap) {
     // Tracker → Map selector
     currentMap = null;
-    document.getElementById('mapTitle').textContent   = GAME_TITLES[currentGame] || currentGame.toUpperCase();
+    document.getElementById('mapTitle').textContent   = 'ZOMBIES TRACKER';
     document.getElementById('btnBack').textContent    = '← Games';
     document.getElementById('screenTracker').style.display = 'none';
     document.getElementById('screenSelect').style.display  = '';
