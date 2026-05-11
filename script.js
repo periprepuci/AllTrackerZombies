@@ -421,13 +421,20 @@ function selectMap(id) {
   document.getElementById('btnDropHist').innerHTML = '▼&ensp;Drop History';
 
   // reset minimize state
-  dropCollapsed = false; specialCollapsed = false; boxCollapsed = false;
+  dropCollapsed = false; specialCollapsed = false; boxCollapsed = false; resourcesCollapsed = false;
   document.getElementById('dropCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('specialCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('boxCycleBody').classList.remove('cycle-body-collapsed');
-  document.getElementById('btnMinDrop').textContent    = '▲';
-  document.getElementById('btnMinSpecial').textContent = '▲';
-  document.getElementById('btnMinBox').textContent     = '▲';
+  document.getElementById('resourcesBody').classList.remove('cycle-body-collapsed');
+  document.getElementById('btnMinDrop').textContent      = '▲';
+  document.getElementById('btnMinSpecial').textContent   = '▲';
+  document.getElementById('btnMinBox').textContent       = '▲';
+  document.getElementById('btnMinResources').textContent = '▲';
+
+  // show/hide resources section (BO1 and WaW only)
+  const showResources = ['bo1', 'waw'].includes(currentMap.game ?? 'bo1');
+  document.getElementById('resourcesSecTitle').style.display = showResources ? '' : 'none';
+  document.getElementById('resourcesBody').style.display     = showResources ? '' : 'none';
 
   // show/hide box section based on whether map has locations
   const hasBox = currentMap.locs.length > 0;
@@ -556,6 +563,8 @@ function onDropClick(id) {
     dropMap[id] = false;
     dropRoute   = dropRoute.filter(r => r !== id);
     delete dropOrder[id];
+    dropRoute.forEach((rid, i) => { dropOrder[rid] = i + 1; });
+    dropCounter = dropRoute.length;
   } else {
     dropMap[id]    = true;
     dropCounter++;
@@ -940,7 +949,7 @@ function buildC2(el) {
       <div class="calc-field"><label class="calc-label">Seconds</label><input class="calc-input" id="c2s" type="number" min="0" max="59" value="30" style="width:70px"></div>
     </div>
     <div class="calc-result"><div class="calc-res-item"><span class="calc-res-lbl">SPH</span><span class="calc-res-val" id="c2v">—</span></div></div>`;
-  const upd = () => { const p=+document.getElementById('c2p').value, r=+document.getElementById('c2r').value, t=parseT(document.getElementById('c2h').value,document.getElementById('c2m').value,document.getElementById('c2s').value), h=hordesOn(r,p); document.getElementById('c2v').textContent=(h&&t)?(t/h).toFixed(4):'—'; };
+  const upd = () => { const p=+document.getElementById('c2p').value, r=+document.getElementById('c2r').value, t=parseT(document.getElementById('c2h').value,document.getElementById('c2m').value,document.getElementById('c2s').value), h=hordesOn(r,p); document.getElementById('c2v').textContent=(h&&t)?+(t/h).toFixed(2):'—'; };
   ['c2p','c2r','c2h','c2m','c2s'].forEach(id => { document.getElementById(id).addEventListener('input', upd); document.getElementById(id).addEventListener('change', upd); });
   upd();
 }
@@ -999,16 +1008,71 @@ function buildC5(el) {
       <div class="calc-field"><label class="calc-label">s</label><input class="calc-input" id="c5s2" type="number" min="0" max="59" value="0" style="width:65px"></div>
     </div>
     <div class="calc-result"><div class="calc-res-item"><span class="calc-res-lbl">Avg SPH</span><span class="calc-res-val" id="c5v">—</span></div></div>`;
-  const upd = () => { const p=+document.getElementById('c5p').value, r1=+document.getElementById('c5r1').value, r2=+document.getElementById('c5r2').value, t1=parseT(document.getElementById('c5h1').value,document.getElementById('c5m1').value,document.getElementById('c5s1').value), t2=parseT(document.getElementById('c5h2').value,document.getElementById('c5m2').value,document.getElementById('c5s2').value); if(!r1||!r2||r2<=r1||t2<=t1){document.getElementById('c5v').textContent='—';return;} let th=0; for(let r=r1;r<=Math.min(r2,ZC.length);r++) th+=hordesOn(r,p); document.getElementById('c5v').textContent=((t2-t1)/th).toFixed(4); };
+  const upd = () => { const p=+document.getElementById('c5p').value, r1=+document.getElementById('c5r1').value, r2=+document.getElementById('c5r2').value, t1=parseT(document.getElementById('c5h1').value,document.getElementById('c5m1').value,document.getElementById('c5s1').value), t2=parseT(document.getElementById('c5h2').value,document.getElementById('c5m2').value,document.getElementById('c5s2').value); if(!r1||!r2||r2<=r1||t2<=t1){document.getElementById('c5v').textContent='—';return;} let th=0; for(let r=r1;r<=Math.min(r2,ZC.length);r++) th+=hordesOn(r,p); document.getElementById('c5v').textContent=+((t2-t1)/th).toFixed(2); };
   ['c5p','c5r1','c5r2','c5h1','c5m1','c5s1','c5h2','c5m2','c5s2'].forEach(id => { document.getElementById(id).addEventListener('input', upd); document.getElementById(id).addEventListener('change', upd); });
   upd();
 }
 
+// ─── Resources ───────────────────────────────────────────────────────────────
+const INSTA_ROUNDS = [
+  163,165,167,169,171,173,175,177,179,181,183,185,188,189,191,
+  194,196,197,199,202,204,205,207,210,211,214,216,217,219,222,
+  224,225,228,229,231,234,236,237,239,242,243,246,248,249,252,
+  253,255,258,259
+];
+
+const INSTABUG_ROUNDS = [
+  { r:147 }, { r:148 }, { r:149 }, { r:154, hits:2 },
+  { r:155 }, { r:161, hits:2 }
+];
+
+function makeAccordionItem(acc, title, buildBodyFn) {
+  const item   = document.createElement('div');   item.className = 'calc-item';
+  const header = document.createElement('button'); header.className = 'calc-item-header';
+  header.innerHTML = `<span>${title}</span><span class="calc-arrow">▶</span>`;
+  const body = document.createElement('div'); body.className = 'calc-item-body'; body.style.display = 'none';
+  buildBodyFn(body);
+  header.addEventListener('click', () => {
+    const open = body.style.display === 'none';
+    body.style.display = open ? '' : 'none';
+    header.classList.toggle('open', open);
+  });
+  item.appendChild(header); item.appendChild(body); acc.appendChild(item);
+}
+
+function buildResources() {
+  const acc = document.getElementById('resourcesAccordion');
+  acc.innerHTML = '';
+
+  makeAccordionItem(acc, 'Instakill Rounds', body => {
+    const grid = document.createElement('div'); grid.className = 'insta-rounds-grid';
+    INSTA_ROUNDS.forEach(r => {
+      const chip = document.createElement('div'); chip.className = 'insta-round-chip';
+      chip.textContent = r; grid.appendChild(chip);
+    });
+    body.appendChild(grid);
+  });
+
+  makeAccordionItem(acc, 'Instabug', body => {
+    const note = document.createElement('p'); note.className = 'instabug-note';
+    note.textContent = 'Instakill stops working from R139. Only works on these rounds:';
+    body.appendChild(note);
+    const grid = document.createElement('div'); grid.className = 'insta-rounds-grid';
+    INSTABUG_ROUNDS.forEach(({ r, hits }) => {
+      const chip = document.createElement('div'); chip.className = 'insta-round-chip';
+      chip.innerHTML = hits ? `${r}<span class="insta-hits">${hits} hits</span>` : r;
+      grid.appendChild(chip);
+    });
+    body.appendChild(grid);
+  });
+}
+
 // ─── Section minimize ─────────────────────────────────────────────────────────
-let dropCollapsed     = false;
-let specialCollapsed  = false;
-let boxCollapsed      = false;
-let calcCollapsed     = false;
+let dropCollapsed       = false;
+let specialCollapsed    = false;
+let boxCollapsed        = false;
+let calcCollapsed       = false;
+let resourcesCollapsed  = false;
 
 function toggleSection(bodyId, btnId, stateGetter, stateSetter) {
   const collapsed = !stateGetter();
@@ -1028,6 +1092,9 @@ document.getElementById('btnMinBox').addEventListener('click', () =>
 );
 document.getElementById('btnMinCalc').addEventListener('click', () =>
   toggleSection('calcBody', 'btnMinCalc', () => calcCollapsed, v => calcCollapsed = v)
+);
+document.getElementById('btnMinResources').addEventListener('click', () =>
+  toggleSection('resourcesBody', 'btnMinResources', () => resourcesCollapsed, v => resourcesCollapsed = v)
 );
 
 // ─── Event listeners ──────────────────────────────────────────────────────────
@@ -1101,4 +1168,5 @@ function showToast(msg) {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 buildCalcSection();
+buildResources();
 buildGameSelector();

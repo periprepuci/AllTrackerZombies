@@ -781,6 +781,30 @@ header::after {
   font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--gold);
 }
 
+/* ── Resources ── */
+.insta-rounds-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 16px 20px 20px;
+}
+.insta-round-chip {
+  font-family: 'Orbitron', sans-serif; font-size: .68rem; font-weight: 700;
+  color: var(--gold);
+  background: rgba(255,230,0,.07);
+  border: 1px solid rgba(255,230,0,.22);
+  border-radius: 6px;
+  padding: 6px 10px; min-width: 44px;
+  text-align: center; letter-spacing: 1px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.insta-hits {
+  font-family: 'Rajdhani', sans-serif; font-size: .65rem; font-weight: 600;
+  color: var(--muted); letter-spacing: .5px; text-transform: uppercase;
+}
+.instabug-note {
+  font-size: .92rem; color: var(--muted); padding: 14px 20px 4px;
+  letter-spacing: .5px;
+}
+
 /* ── Responsive ── */
 @media(max-width:860px) {
   .loc-grid        { grid-template-columns: repeat(3, 1fr); gap:12px; }
