@@ -241,7 +241,13 @@ const MAPS = [
   { id:'bo2_tranzit',  name:'TranZit',          game:'bo2', thumb:'imagenes/maps/TranZit/thumbnail.webp',          thumbPos:'80% center', caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
   { id:'bo2_town',     name:'Town',              game:'bo2', thumb:'imagenes/maps/Town/thumbnail.jpg',              caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
   { id:'bo2_farm',     name:'Farm',              game:'bo2', thumb:'imagenes/maps/Farm/thumbnail.webp',              caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
-  { id:'bo2_nuketown', name:'Nuketown Zombies',  game:'bo2', thumb:'imagenes/maps/Nuketown Zombies/thumbnail.webp',  caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[] },
+  { id:'bo2_nuketown', name:'Nuketown Zombies',  game:'bo2', thumb:'imagenes/maps/Nuketown Zombies/thumbnail.webp',  caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[
+    { id:'bunker1',  name:'Bunker 1',   img:'imagenes/maps/Nuketown Zombies/BUNKER 1.png',  imgFit:'cover' },
+    { id:'casa1',    name:'Casa 1',     img:'imagenes/maps/Nuketown Zombies/CASA 1.png',    imgFit:'cover' },
+    { id:'casaazul', name:'Casa Azul',  img:'imagenes/maps/Nuketown Zombies/CASA AZUL.png', imgFit:'cover' },
+    { id:'garaje',   name:'Garaje',     img:'imagenes/maps/Nuketown Zombies/GARAJE.png',    imgFit:'cover', imgPos:'center 40%' },
+    { id:'yellow',   name:'Yellow',     img:'imagenes/maps/Nuketown Zombies/YELLOW.png',    imgFit:'cover' },
+  ] },
   { id:'bo2_dierise',  name:'Die Rise',          game:'bo2', thumb:'imagenes/maps/Die Rise/thumbnail.webp',          caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
   { id:'bo2_motd',     name:'Mob of the Dead',   game:'bo2', thumb:'imagenes/maps/Mob of the Dead/thumbnail.webp',   caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[] },
   { id:'bo2_buried',   name:'Buried',            game:'bo2', thumb:'imagenes/maps/Buried/thumbnail.jpg',            caps:{fs:true,dm:false}, boss:{type:'none'}, locs:[] },
@@ -704,7 +710,7 @@ function buildGrid() {
     el.id = 'card-' + loc.id;
     el.innerHTML = `
       <div class="card-img">
-        <img src="${loc.img}" alt="${loc.name}" draggable="false">
+        <img src="${loc.img}" alt="${loc.name}" draggable="false" style="${loc.imgFit ? `object-fit:${loc.imgFit};` : ''}${loc.imgPos ? `object-position:${loc.imgPos};` : ''}">
         <div class="img-tint"></div>
         <div class="order-badge" id="badge-${loc.id}"></div>
       </div>
