@@ -503,6 +503,7 @@ function goBack() {
     document.getElementById('screenTracker').style.display = 'none';
     document.getElementById('btnFocus').style.display      = 'none';
     focusMode = false;
+    restoreFocusExtra();
     document.getElementById('screenTracker').classList.remove('focus-mode');
     document.getElementById('btnFocus').classList.remove('fm-active');
     document.getElementById('screenSelect').style.display  = '';
@@ -1184,11 +1185,104 @@ document.getElementById('btnClearAll').addEventListener('click', clearAllDrops);
 document.getElementById('btnClearAllBox').addEventListener('click', clearAllBox);
 document.getElementById('btnBack').addEventListener('click', goBack);
 
-let focusMode = false;
+// ─── Focus mode ──────────────────────────────────────────────────────────────
+let focusMode       = false;
+let focusExtraMoved = null; // { el, parent, nextSibling }
+
+const FOCUS_EXTRA_OPTIONS = [
+  { id:'c1',       label:'Zombie Round Stats',     bodyId:'calcBody',      openItem:'Zombie Round Stats' },
+  { id:'c2',       label:'SPH Calculator',         bodyId:'calcBody',      openItem:'SPH Calculator' },
+  { id:'c3',       label:'Round Time Calculator',  bodyId:'calcBody',      openItem:'Round Time Calculator' },
+  { id:'c4',       label:'Combined Round Time',    bodyId:'calcBody',      openItem:'Combined Round Time' },
+  { id:'c5',       label:'Average SPH',            bodyId:'calcBody',      openItem:'Average SPH' },
+  { id:'insta',    label:'Instakill Rounds',       bodyId:'resourcesBody', openItem:'Instakill Rounds' },
+  { id:'instabug', label:'Instabug',               bodyId:'resourcesBody', openItem:'Instabug' },
+  { id:'nuke1p',   label:'Nuke Timing — 1P',      bodyId:'resourcesBody', openItem:'Nuke Timing — 1 Player' },
+];
+
+function openAccordionItem(accordionEl, title) {
+  accordionEl.querySelectorAll('.calc-item').forEach(item => {
+    const hdr   = item.querySelector('.calc-item-header');
+    const body  = item.querySelector('.calc-item-body');
+    const arrow = hdr.querySelector('.calc-arrow');
+    const match = hdr.querySelector('span').textContent === title;
+    item.style.display  = match ? '' : 'none';
+    body.style.display  = match ? '' : 'none';
+    if (arrow) arrow.style.transform = match ? 'rotate(90deg)' : '';
+  });
+}
+
+function restoreFocusExtra() {
+  if (focusExtraMoved) {
+    const { el, parent, nextSibling } = focusExtraMoved;
+    // restore all hidden accordion items
+    el.querySelectorAll('.calc-item').forEach(item => item.style.display = '');
+    el.classList.remove('focus-extra-visible');
+    parent.insertBefore(el, nextSibling);
+    focusExtraMoved = null;
+  }
+  renderFocusExtraSlot(false);
+}
+
+function selectFocusExtra(opt) {
+  const inner = document.getElementById('focusExtraInner');
+  inner.innerHTML = '';
+
+  // header
+  const hdr = document.createElement('div'); hdr.className = 'focus-extra-header';
+  const lbl = document.createElement('p'); lbl.className = 'sec-title'; lbl.style.cssText = 'margin:0;display:inline';
+  lbl.textContent = opt.label;
+  const chg = document.createElement('button'); chg.className = 'btn-change-extra'; chg.textContent = '↺ Change';
+  chg.addEventListener('click', () => { restoreFocusExtra(); renderFocusExtraSlot(true); });
+  hdr.appendChild(lbl); hdr.appendChild(chg);
+  inner.appendChild(hdr);
+
+  // content div — in DOM before moving bodyEl into it
+  const content = document.createElement('div'); content.id = 'focusExtraContent';
+  inner.appendChild(content);
+
+  // move body into content
+  const bodyEl = document.getElementById(opt.bodyId);
+  focusExtraMoved = { el: bodyEl, parent: bodyEl.parentNode, nextSibling: bodyEl.nextSibling };
+  content.appendChild(bodyEl);
+  bodyEl.classList.add('focus-extra-visible');
+  bodyEl.style.display = '';
+  if (opt.openItem) {
+    const acc = bodyEl.querySelector('.calc-accordion');
+    if (acc) openAccordionItem(acc, opt.openItem);
+  }
+}
+
+function renderFocusExtraSlot(showPicker) {
+  const inner = document.getElementById('focusExtraInner');
+  inner.innerHTML = '';
+
+  if (showPicker) {
+    const picker = document.createElement('div'); picker.className = 'focus-extra-picker';
+    const showRes = ['bo1','waw'].includes(currentMap?.game ?? 'bo1');
+    FOCUS_EXTRA_OPTIONS.forEach(opt => {
+      if (!showRes && opt.bodyId === 'resourcesBody') return;
+      const btn = document.createElement('button'); btn.className = 'btn-extra-option';
+      btn.textContent = opt.label;
+      btn.addEventListener('click', () => selectFocusExtra(opt));
+      picker.appendChild(btn);
+    });
+    inner.appendChild(picker);
+    return;
+  }
+
+  const btn = document.createElement('button'); btn.className = 'btn-add-extra';
+  btn.textContent = '+ Add Section';
+  btn.addEventListener('click', () => renderFocusExtraSlot(true));
+  inner.appendChild(btn);
+}
+
 document.getElementById('btnFocus').addEventListener('click', () => {
   focusMode = !focusMode;
   document.getElementById('screenTracker').classList.toggle('focus-mode', focusMode);
   document.getElementById('btnFocus').classList.toggle('fm-active', focusMode);
+  if (focusMode) renderFocusExtraSlot(false);
+  else restoreFocusExtra();
 });
 document.getElementById('toggleCarp').addEventListener('click', () => onToggle('toggleCarp'));
 document.getElementById('toggleSales').addEventListener('click', () => onToggle('toggleSales'));

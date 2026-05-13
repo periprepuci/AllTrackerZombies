@@ -847,13 +847,24 @@ header::after {
   gap: 0 14px;
   align-items: start;
 }
+#focusExtraInner { display: none; }
+.focus-mode #focusExtraInner { display: block; margin-top: 10px; }
 .focus-mode #sectionDrop    { grid-column: 1; grid-row: 1; }
 .focus-mode #sectionBox     { grid-column: 2; grid-row: 1; }
 .focus-mode #sectionSpecial { grid-column: 3; grid-row: 1; }
+.btn-add-extra { width:100%; padding:14px; border:1px dashed rgba(255,255,255,.2); border-radius:12px; background:transparent; color:rgba(255,255,255,.4); font-family:'Orbitron',sans-serif; font-size:.75rem; letter-spacing:1.5px; cursor:pointer; transition:all .2s; }
+.btn-add-extra:hover { border-color:rgba(255,255,255,.5); color:#fff; }
+.focus-extra-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.focus-extra-header .sec-title { margin:0; font-size:.7rem; }
+.btn-change-extra { font-family:'Rajdhani',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border:1px solid rgba(255,255,255,.2); border-radius:6px; background:transparent; color:rgba(255,255,255,.5); cursor:pointer; transition:all .2s; }
+.btn-change-extra:hover { border-color:#fff; color:#fff; }
+.focus-extra-picker { display:flex; flex-direction:column; gap:6px; padding:4px 0; }
+.btn-extra-option { padding:10px 14px; border:1px solid rgba(255,255,255,.15); border-radius:10px; background:transparent; color:rgba(255,255,255,.7); font-family:'Rajdhani',sans-serif; font-size:.85rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; cursor:pointer; text-align:left; transition:all .2s; }
+.btn-extra-option:hover { border-color:rgba(100,140,255,.6); color:#fff; background:rgba(80,100,255,.1); }
 .focus-mode #calcSecTitle,
-.focus-mode #calcBody,
-.focus-mode #resourcesSecTitle,
-.focus-mode #resourcesBody  { display: none !important; }
+.focus-mode #resourcesSecTitle { display: none !important; }
+.focus-mode #calcBody:not(.focus-extra-visible),
+.focus-mode #resourcesBody:not(.focus-extra-visible) { display: none; }
 .focus-mode .sec-title      { font-size: .7rem; padding: 6px 0 4px; margin-bottom: 4px; }
 .focus-mode .drop-toggles   { gap: 6px; margin-bottom: 8px; }
 .focus-mode .drop-grid      { max-width: 100% !important; gap: 10px !important; grid-template-columns: repeat(3, 1fr) !important; }
@@ -864,6 +875,23 @@ header::after {
 .focus-mode .loc-grid       { gap: 6px !important; grid-template-columns: repeat(3, 1fr) !important; }
 .focus-mode .card-img       { aspect-ratio: 4/3; }
 .focus-mode .card-name      { font-size: .58rem; }
+
+/* ── Focus Extra compact ── */
+#focusExtraInner .calc-item-body   { padding: 10px 12px; }
+#focusExtraInner .calc-row         { gap: 8px; margin-bottom: 8px; }
+#focusExtraInner .calc-input,
+#focusExtraInner .calc-select      { font-size: .72rem; padding: 6px 8px; }
+#focusExtraInner .calc-step-btn    { padding: 5px 7px; font-size: .68rem; }
+#focusExtraInner .calc-result      { padding: 8px 10px; gap: 14px; margin-top: 4px; }
+#focusExtraInner .calc-res-val     { font-size: .85rem; }
+#focusExtraInner .calc-res-lbl     { font-size: .5rem; }
+#focusExtraInner .insta-rounds-grid { padding: 10px 12px 12px; gap: 6px; }
+#focusExtraInner .insta-round-chip { font-size: .6rem; padding: 6px 8px; min-width: 36px; }
+#focusExtraInner .nuke-timing-grid { padding: 10px 12px 12px; gap: 6px; }
+#focusExtraInner .nuke-timing-chip { padding: 6px 8px; min-width: 44px; }
+#focusExtraInner .nuke-r           { font-size: .58rem; }
+#focusExtraInner .nuke-t           { font-size: .68rem; }
+#focusExtraInner .instabug-note    { font-size: .78rem; padding: 8px 12px 4px; }
 
 /* ── Responsive ── */
 @media(max-width:860px) {
