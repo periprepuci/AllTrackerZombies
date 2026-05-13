@@ -428,6 +428,7 @@ function selectMap(id) {
 
   document.getElementById('screenSelect').style.display  = 'none';
   document.getElementById('screenTracker').style.display = '';
+  document.getElementById('btnFocus').style.display      = 'flex';
 
   // close any open history panels
   ['histWrap', 'dropHistWrap'].forEach(wid => {
@@ -500,6 +501,10 @@ function goBack() {
     document.getElementById('mapTitle').textContent   = 'ZOMBIES TRACKER';
     document.getElementById('btnBack').textContent    = '← Games';
     document.getElementById('screenTracker').style.display = 'none';
+    document.getElementById('btnFocus').style.display      = 'none';
+    focusMode = false;
+    document.getElementById('screenTracker').classList.remove('focus-mode');
+    document.getElementById('btnFocus').classList.remove('fm-active');
     document.getElementById('screenSelect').style.display  = '';
     buildMapSelector();
   } else {
@@ -611,6 +616,24 @@ function manualDropReset() {
   resetDropState();
   buildDropGrid();
   renderDropCards();
+}
+
+function clearAllDrops() {
+  const ms = getMS(currentMap.id);
+  ms.dropHistory = []; ms.dropCycleNum = 1;
+  renderDropHistory();
+  toggles.carp = false; toggles.fs = false; toggles.dm = false;
+  ['toggleCarp','toggleSales','togglePower'].forEach(id =>
+    document.getElementById(id).classList.remove('active')
+  );
+  manualDropReset();
+}
+
+function clearAllBox() {
+  const ms = getMS(currentMap.id);
+  ms.history = []; ms.cycleNum = 1;
+  renderHistory();
+  manualReset();
 }
 
 // ─── Drop: history render ─────────────────────────────────────────────────────
@@ -1039,6 +1062,16 @@ const INSTA_ROUNDS = [
   253,255,258,259
 ];
 
+const NUKE_TIMING_1P = [
+  {r:4,t:30.6},{r:5,t:40.25},{r:6,t:42.9},{r:7,t:41.9},{r:8,t:40.5},
+  {r:9,t:40.6},{r:10,t:43.2},{r:11,t:42.9},{r:12,t:43.75},{r:13,t:45.6},
+  {r:14,t:46},{r:15,t:47.3},{r:16,t:48.3},{r:17,t:49},{r:18,t:49.4},
+  {r:19,t:49.5},{r:20,t:50.2},{r:21,t:49.6},{r:22,t:52.8},{r:23,t:52.5},
+  {r:24,t:51.8},{r:25,t:55.3},{r:26,t:54},{r:27,t:57.2},{r:28,t:55.8},
+  {r:29,t:58.8},{r:30,t:57.2},{r:31,t:60},{r:32,t:57.5},{r:33,t:60.5},
+  {r:34,t:57.1},{r:35,t:59.9},
+];
+
 const INSTABUG_ROUNDS = [
   { r:147 }, { r:148 }, { r:149 }, { r:154, hits:2 },
   { r:155 }, { r:161, hits:2 }
@@ -1061,6 +1094,19 @@ function makeAccordionItem(acc, title, buildBodyFn) {
 function buildResources() {
   const acc = document.getElementById('resourcesAccordion');
   acc.innerHTML = '';
+
+  makeAccordionItem(acc, 'Nuke Timing — 1 Player', body => {
+    const note = document.createElement('p'); note.className = 'instabug-note';
+    note.textContent = 'Time for the round to end when picking up Nuke in solo:';
+    body.appendChild(note);
+    const grid = document.createElement('div'); grid.className = 'nuke-timing-grid';
+    NUKE_TIMING_1P.forEach(({ r, t }) => {
+      const chip = document.createElement('div'); chip.className = 'nuke-timing-chip';
+      chip.innerHTML = `<span class="nuke-r">R${r}</span><span class="nuke-t">${t}s</span>`;
+      grid.appendChild(chip);
+    });
+    body.appendChild(grid);
+  });
 
   makeAccordionItem(acc, 'Instakill Rounds', body => {
     const grid = document.createElement('div'); grid.className = 'insta-rounds-grid';
@@ -1134,7 +1180,16 @@ document.getElementById('btnDropHist').addEventListener('click', () => {
 
 document.getElementById('btnReset').addEventListener('click', manualReset);
 document.getElementById('btnDropReset').addEventListener('click', manualDropReset);
+document.getElementById('btnClearAll').addEventListener('click', clearAllDrops);
+document.getElementById('btnClearAllBox').addEventListener('click', clearAllBox);
 document.getElementById('btnBack').addEventListener('click', goBack);
+
+let focusMode = false;
+document.getElementById('btnFocus').addEventListener('click', () => {
+  focusMode = !focusMode;
+  document.getElementById('screenTracker').classList.toggle('focus-mode', focusMode);
+  document.getElementById('btnFocus').classList.toggle('fm-active', focusMode);
+});
 document.getElementById('toggleCarp').addEventListener('click', () => onToggle('toggleCarp'));
 document.getElementById('toggleSales').addEventListener('click', () => onToggle('toggleSales'));
 document.getElementById('togglePower').addEventListener('click', () => onToggle('togglePower'));
@@ -1146,7 +1201,7 @@ function showToast(msg) {
   document.getElementById('toastTxt').textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3400);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1000);
 }
 
 // ─── Starfield ────────────────────────────────────────────────────────────────

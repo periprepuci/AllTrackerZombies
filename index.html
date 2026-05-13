@@ -48,7 +48,8 @@
   <div id="screenTracker" style="display:none">
 
     <!-- ── Drop Cycle ── -->
-    <p class="sec-title">Drop Cycle <button class="btn-minimize" id="btnMinDrop" title="Minimize">▲</button></p>
+    <div class="tracker-section" id="sectionDrop">
+    <p class="sec-title" id="dropSecTitle">Drop Cycle <button class="btn-minimize" id="btnMinDrop" title="Minimize">▲</button></p>
 
     <div id="dropCycleBody">
       <div class="drop-toggles">
@@ -62,6 +63,7 @@
       <div class="controls">
         <button class="btn btn-reset" id="btnDropReset">⟳&ensp;Clear Drops</button>
         <button class="btn btn-hist"  id="btnDropHist">▼&ensp;Drop History</button>
+        <button class="btn btn-danger" id="btnClearAll">✕&ensp;Clear All</button>
       </div>
       <div class="history-wrap" id="dropHistWrap">
         <div class="history-head">
@@ -73,8 +75,10 @@
         </div>
       </div>
     </div>
+    </div>
 
     <!-- ── Box Cycle ── -->
+    <div class="tracker-section" id="sectionBox">
     <p class="sec-title" id="boxSecTitle">Mystery Box Locations <button class="btn-minimize" id="btnMinBox" title="Minimize">▲</button></p>
 
     <div id="boxCycleBody">
@@ -97,6 +101,7 @@
       <div class="controls">
         <button class="btn btn-reset" id="btnReset">⟳&ensp;Reset Cycle</button>
         <button class="btn btn-hist"  id="btnHist">▼&ensp;Cycle History</button>
+        <button class="btn btn-danger" id="btnClearAllBox">✕&ensp;Clear All</button>
       </div>
 
       <div class="history-wrap" id="histWrap">
@@ -109,15 +114,18 @@
         </div>
       </div>
     </div>
+    </div>
 
     <!-- ── Special Rounds ── -->
+    <div class="tracker-section" id="sectionSpecial">
     <p class="sec-title" id="specialTitle">Special Rounds <button class="btn-minimize" id="btnMinSpecial" title="Minimize">▲</button></p>
     <div id="specialCycleBody">
       <div id="specialTracker"></div>
     </div>
+    </div>
 
     <!-- ── Calculators ── -->
-    <p class="sec-title">Calculators <button class="btn-minimize" id="btnMinCalc" title="Minimize">▲</button></p>
+    <p class="sec-title" id="calcSecTitle">Calculators <button class="btn-minimize" id="btnMinCalc" title="Minimize">▲</button></p>
     <div id="calcBody">
       <div class="calc-accordion" id="calcAccordion"></div>
     </div>
@@ -131,6 +139,8 @@
   </div>
 
 </div>
+
+<button class="btn-focus" id="btnFocus" style="display:none" title="Focus Mode">⊞</button>
 
 <div class="toast" id="toast">
   <span class="toast-ico">✓</span>
