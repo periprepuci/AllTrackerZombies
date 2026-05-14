@@ -82,6 +82,7 @@ header::after {
   border-radius: 50%;
   border: 1px dashed rgba(255,34,85,.25);
   animation: spinSlow 25s linear infinite;
+  will-change: transform;
 }
 .emblem-inner {
   width: 28px; height: 28px;
@@ -95,6 +96,7 @@ header::after {
   font-size: .9rem;
   filter: drop-shadow(0 0 5px rgba(255,34,85,.6));
   animation: breathe 3.5s ease-in-out infinite;
+  will-change: transform, filter;
 }
 @keyframes spinSlow { to { transform: rotate(360deg); } }
 @keyframes breathe {
@@ -119,6 +121,7 @@ header::after {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   margin-bottom: 5px;
   animation: titleGlitch 11s ease-in-out infinite;
+  will-change: transform, filter;
 }
 @keyframes titleGlitch {
   0%, 88%, 100% { transform: none; filter: none; }
@@ -826,6 +829,22 @@ header::after {
   font-size: .78rem; font-weight: 700; letter-spacing: .5px;
   color: #ff9a3c;
 }
+.nuke-player-tabs {
+  display: flex; gap: 6px; padding: 14px 20px 4px;
+}
+.nuke-tab {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .78rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 5px 14px; border-radius: 6px;
+  border: 1px solid var(--muted); color: var(--muted);
+  background: transparent; cursor: pointer; transition: all var(--t);
+}
+.nuke-tab:hover { border-color: #ff9a3c; color: #ff9a3c; }
+.nuke-tab.active {
+  border-color: #ff9a3c; color: #ff9a3c;
+  background: rgba(255,154,60,.08);
+  box-shadow: 0 0 10px rgba(255,154,60,.2);
+}
 
 /* ── Focus Mode ── */
 .btn-focus {
@@ -891,6 +910,8 @@ header::after {
 #focusExtraInner .nuke-timing-chip { padding: 6px 8px; min-width: 44px; }
 #focusExtraInner .nuke-r           { font-size: .58rem; }
 #focusExtraInner .nuke-t           { font-size: .68rem; }
+#focusExtraInner .nuke-player-tabs { padding: 8px 12px 2px; gap: 4px; }
+#focusExtraInner .nuke-tab         { font-size: .65rem; padding: 3px 10px; }
 #focusExtraInner .instabug-note    { font-size: .78rem; padding: 8px 12px 4px; }
 
 /* ── Responsive ── */

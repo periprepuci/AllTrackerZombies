@@ -407,7 +407,7 @@ function buildMapSelector() {
     el.className = 'map-card';
     el.innerHTML = `
       <div class="map-card-img">
-        <img src="${map.thumb}" alt="${map.name}" draggable="false"${map.thumbPos ? ` style="object-position:${map.thumbPos}"` : ''}>
+        <img src="${map.thumb}" alt="${map.name}" loading="lazy" decoding="async" draggable="false"${map.thumbPos ? ` style="object-position:${map.thumbPos}"` : ''}>
         <div class="img-tint"></div>
       </div>
       <div class="map-card-footer">
@@ -492,6 +492,8 @@ function selectMap(id) {
     const el = document.getElementById(id);
     if (el) el.dispatchEvent(new Event('input'));
   });
+
+  refreshNukeTiming();
 }
 
 function goBack() {
@@ -563,7 +565,7 @@ function buildDropGrid() {
     el.id = 'dcard-' + drop.id;
     el.innerHTML = `
       <div class="drop-badge" id="dbadge-${drop.id}"></div>
-      <img class="drop-icon" src="${drop.img}" alt="${drop.name}" draggable="false">
+      <img class="drop-icon" src="${drop.img}" alt="${drop.name}" loading="lazy" decoding="async" draggable="false">
       <span class="drop-name">${drop.name}</span>`;
     el.addEventListener('click', () => onDropClick(drop.id));
     grid.appendChild(el);
@@ -1073,6 +1075,78 @@ const NUKE_TIMING_1P = [
   {r:34,t:57.1},{r:35,t:59.9},
 ];
 
+// WaW nuke timing — per map, all player counts [solo, duo, trio, quad], R1-R29
+const WAW_NUKE_TIMING = {
+  waw_nacht: [
+    ['0:09','0:15','0:19','0:22'],['0:23','0:31','0:38','0:43'],
+    ['0:35','0:44','0:54','1:05'],['0:46','0:58','1:09','1:22'],
+    ['0:56','1:11','1:26','1:41'],['0:53','1:09','1:26','1:42'],
+    ['0:51','1:07','1:26','1:46'],['0:48','1:07','1:29','1:48'],
+    ['0:46','1:06','1:29','1:51'],['0:44','1:18','1:53','2:27'],
+    ['0:42','1:19','1:59','2:39'],['0:39','1:21','2:06','2:51'],
+    ['0:37','1:25','2:13','3:03'],['0:36','1:31','2:25','3:19'],
+    ['0:34','1:31','2:31','3:29'],['0:32','1:36','2:42','3:46'],
+    ['0:29','1:37','2:46','3:53'],['0:29','1:41','2:54','4:07'],
+    ['0:28','1:44','3:03','4:21'],['0:27','1:49','3:13','4:36'],
+    ['0:25','1:52','3:20','4:48'],['0:24','1:51','3:18','4:45'],
+    ['0:22','1:52','3:23','4:53'],['0:21','1:53','3:28','5:01'],
+    ['0:21','2:01','3:44','5:25'],['0:19','2:02','3:47','5:30'],
+    ['0:19','2:03','3:49','5:33'],['0:17','2:02','3:49','5:35'],
+    ['0:16','2:03','3:48','5:35'],
+  ],
+  waw_verruckt: [
+    ['0:15','0:18','0:28','0:37'],['0:14','0:19','0:28','0:38'],
+    ['0:35','0:44','0:54','1:05'],['0:46','0:58','1:09','1:22'],
+    ['0:56','1:11','1:26','1:41'],['0:53','1:09','1:26','1:42'],
+    ['0:51','1:07','1:26','1:46'],['0:48','1:07','1:29','1:48'],
+    ['0:46','1:06','1:29','1:51'],['0:44','1:18','1:53','2:27'],
+    ['0:42','1:19','1:59','2:39'],['0:39','1:21','2:06','2:51'],
+    ['0:37','1:25','2:13','3:03'],['0:36','1:31','2:25','3:19'],
+    ['0:34','1:31','2:31','3:29'],['0:32','1:36','2:42','3:46'],
+    ['0:29','1:37','2:46','3:53'],['0:29','1:41','2:54','4:07'],
+    ['0:28','1:44','3:03','4:21'],['0:27','1:49','3:13','4:36'],
+    ['0:25','1:52','3:20','4:48'],['0:24','1:51','3:18','4:45'],
+    ['0:22','1:52','3:23','4:53'],['0:21','1:53','3:28','5:01'],
+    ['0:21','2:01','3:44','5:25'],['0:19','2:02','3:47','5:30'],
+    ['0:19','2:03','3:49','5:33'],['0:17','2:02','3:49','5:35'],
+    ['0:16','2:01','3:48','5:35'],
+  ],
+  waw_shinuma: [
+    ['0:09','0:15','0:19','0:22'],['0:23','0:31','0:38','0:43'],
+    ['0:35','0:44','0:54','1:05'],['0:46','0:58','1:09','1:22'],
+    ['0:56','1:11','1:26','1:41'],['0:53','1:09','1:26','1:42'],
+    ['0:51','1:07','1:26','1:46'],['0:48','1:07','1:29','1:48'],
+    ['0:46','1:06','1:29','1:51'],['0:44','1:18','1:53','2:27'],
+    ['0:42','1:19','1:59','2:39'],['0:39','1:21','2:06','2:51'],
+    ['0:37','1:25','2:13','3:03'],['0:36','1:31','2:25','3:19'],
+    ['0:34','1:31','2:31','3:29'],['0:32','1:36','2:42','3:46'],
+    ['0:29','1:37','2:46','3:53'],['0:29','1:41','2:54','4:07'],
+    ['0:28','1:44','3:03','4:21'],['0:27','1:49','3:13','4:36'],
+    ['0:25','1:52','3:20','4:48'],['0:24','1:51','3:18','4:45'],
+    ['0:22','1:52','3:23','4:53'],['0:21','1:53','3:28','5:01'],
+    ['0:21','2:01','3:44','5:25'],['0:19','2:02','3:47','5:30'],
+    ['0:19','2:03','3:49','5:33'],['0:17','2:02','3:49','5:35'],
+    ['0:16','2:03','3:48','5:35'],
+  ],
+  waw_derriese: [
+    ['0:08','0:10','0:12','0:14'],['0:18','0:21','0:26','0:30'],
+    ['0:28','0:32','0:38','0:45'],['0:36','0:41','0:48','0:57'],
+    ['0:45','0:50','1:00','1:10'],['0:43','0:49','1:01','1:12'],
+    ['0:41','0:47','0:59','1:13'],['0:39','0:47','1:00','1:15'],
+    ['0:39','0:47','1:02','1:18'],['0:42','0:54','1:18','1:41'],
+    ['0:41','0:56','1:22','1:51'],['0:42','0:58','1:29','2:01'],
+    ['0:44','1:01','1:35','2:12'],['0:44','1:05','1:44','2:21'],
+    ['0:45','1:07','1:49','2:32'],['0:46','1:10','1:55','2:42'],
+    ['0:46','1:12','2:01','2:51'],['0:47','1:14','2:07','2:58'],
+    ['0:47','1:15','2:09','3:05'],['0:46','1:17','2:14','3:12'],
+    ['0:47','1:17','2:16','3:16'],['0:51','1:23','2:32','3:33'],
+    ['0:48','1:24','2:29','3:36'],['0:48','1:23','2:31','3:37'],
+    ['0:52','1:28','2:41','3:54'],['0:49','1:27','2:42','3:53'],
+    ['0:53','1:33','2:51','4:10'],['0:51','1:31','2:48','4:05'],
+    ['0:53','1:36','2:59','4:22'],
+  ],
+};
+
 const INSTABUG_ROUNDS = [
   { r:147 }, { r:148 }, { r:149 }, { r:154, hits:2 },
   { r:155 }, { r:161, hits:2 }
@@ -1096,11 +1170,31 @@ function buildResources() {
   const acc = document.getElementById('resourcesAccordion');
   acc.innerHTML = '';
 
-  makeAccordionItem(acc, 'Nuke Timing — 1 Player', body => {
-    const note = document.createElement('p'); note.className = 'instabug-note';
+  makeAccordionItem(acc, 'Nuke Timing', body => {
+    const tabs = document.createElement('div');
+    tabs.id = 'nukeTimingTabs';
+    tabs.className = 'nuke-player-tabs';
+    tabs.style.display = 'none';
+    ['1P','2P','3P','4P'].forEach((label, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.className = 'nuke-tab' + (i === 0 ? ' active' : '');
+      btn.addEventListener('click', () => {
+        tabs.querySelectorAll('.nuke-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderNukeGrid(i);
+      });
+      tabs.appendChild(btn);
+    });
+    body.appendChild(tabs);
+
+    const note = document.createElement('p');
+    note.id = 'nukeTimingNote'; note.className = 'instabug-note';
     note.textContent = 'Time for the round to end when picking up Nuke in solo:';
     body.appendChild(note);
-    const grid = document.createElement('div'); grid.className = 'nuke-timing-grid';
+
+    const grid = document.createElement('div');
+    grid.id = 'nukeTimingGrid'; grid.className = 'nuke-timing-grid';
     NUKE_TIMING_1P.forEach(({ r, t }) => {
       const chip = document.createElement('div'); chip.className = 'nuke-timing-chip';
       chip.innerHTML = `<span class="nuke-r">R${r}</span><span class="nuke-t">${t}s</span>`;
@@ -1130,6 +1224,45 @@ function buildResources() {
     });
     body.appendChild(grid);
   });
+}
+
+function renderNukeGrid(playerIndex) {
+  const grid = document.getElementById('nukeTimingGrid');
+  if (!grid || !currentMap) return;
+  grid.innerHTML = '';
+  const game = currentMap.game ?? 'bo1';
+  if (game === 'waw') {
+    const data = WAW_NUKE_TIMING[currentMap.id] ?? WAW_NUKE_TIMING.waw_nacht;
+    data.forEach((times, i) => {
+      const chip = document.createElement('div'); chip.className = 'nuke-timing-chip';
+      chip.innerHTML = `<span class="nuke-r">R${i+1}</span><span class="nuke-t">${times[playerIndex]}</span>`;
+      grid.appendChild(chip);
+    });
+  } else {
+    NUKE_TIMING_1P.forEach(({ r, t }) => {
+      const chip = document.createElement('div'); chip.className = 'nuke-timing-chip';
+      chip.innerHTML = `<span class="nuke-r">R${r}</span><span class="nuke-t">${t}s</span>`;
+      grid.appendChild(chip);
+    });
+  }
+}
+
+function refreshNukeTiming() {
+  const game = currentMap?.game ?? 'bo1';
+  const tabs = document.getElementById('nukeTimingTabs');
+  const note = document.getElementById('nukeTimingNote');
+  if (game === 'waw') {
+    if (tabs) {
+      tabs.style.display = '';
+      tabs.querySelectorAll('.nuke-tab').forEach((b, i) => b.classList.toggle('active', i === 0));
+    }
+    if (note) note.textContent = 'Time for the round to end when picking up Nuke:';
+    renderNukeGrid(0);
+  } else {
+    if (tabs) tabs.style.display = 'none';
+    if (note) note.textContent = 'Time for the round to end when picking up Nuke in solo:';
+    renderNukeGrid(0);
+  }
 }
 
 // ─── Section minimize ─────────────────────────────────────────────────────────
@@ -1197,7 +1330,7 @@ const FOCUS_EXTRA_OPTIONS = [
   { id:'c5',       label:'Average SPH',            bodyId:'calcBody',      openItem:'Average SPH' },
   { id:'insta',    label:'Instakill Rounds',       bodyId:'resourcesBody', openItem:'Instakill Rounds' },
   { id:'instabug', label:'Instabug',               bodyId:'resourcesBody', openItem:'Instabug' },
-  { id:'nuke1p',   label:'Nuke Timing — 1P',      bodyId:'resourcesBody', openItem:'Nuke Timing — 1 Player' },
+  { id:'nuke1p',   label:'Nuke Timing',            bodyId:'resourcesBody', openItem:'Nuke Timing' },
 ];
 
 function openAccordionItem(accordionEl, title) {
@@ -1302,12 +1435,13 @@ function showToast(msg) {
 (function () {
   const c   = document.getElementById('starfield');
   const ctx = c.getContext('2d');
-  let stars = [], W, H, t = 0;
+  let stars = [], W, H, t = 0, raf, lastFrame = 0;
+  const INTERVAL = 1000 / 30;
 
   function resize() {
     W = c.width  = window.innerWidth;
     H = c.height = window.innerHeight;
-    stars = Array.from({ length: 200 }, () => ({
+    stars = Array.from({ length: 120 }, () => ({
       x:  Math.random() * W,  y:  Math.random() * H,
       r:  Math.random() * 1.1 + .15,
       a:  Math.random() * .9 + .1,
@@ -1316,21 +1450,29 @@ function showToast(msg) {
     }));
   }
 
-  function draw() {
+  function draw(now) {
+    raf = requestAnimationFrame(draw);
+    if (now - lastFrame < INTERVAL) return;
+    lastFrame = now;
     ctx.clearRect(0, 0, W, H);
-    t += .007;
+    t += .014;
+    ctx.fillStyle = 'rgb(200,212,255)';
     stars.forEach(s => {
-      const a = s.a * (.45 + .55 * Math.sin(t * s.sp + s.ph));
+      ctx.globalAlpha = s.a * (.45 + .55 * Math.sin(t * s.sp + s.ph));
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200,212,255,${a})`;
       ctx.fill();
     });
-    requestAnimationFrame(draw);
+    ctx.globalAlpha = 1;
   }
 
   window.addEventListener('resize', resize);
-  resize(); draw();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else { lastFrame = 0; raf = requestAnimationFrame(draw); }
+  });
+  resize();
+  raf = requestAnimationFrame(draw);
 })();
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
