@@ -896,23 +896,40 @@ header::after {
 .focus-mode .card-name      { font-size: .58rem; }
 
 /* ── Focus Extra compact ── */
-#focusExtraInner .calc-item-body   { padding: 10px 12px; }
-#focusExtraInner .calc-row         { gap: 8px; margin-bottom: 8px; }
+#focusExtraInner .calc-item-body,
+#focusExtraInner2 .calc-item-body   { padding: 10px 12px; }
+#focusExtraInner .calc-row,
+#focusExtraInner2 .calc-row         { gap: 8px; margin-bottom: 8px; }
 #focusExtraInner .calc-input,
-#focusExtraInner .calc-select      { font-size: .72rem; padding: 6px 8px; }
-#focusExtraInner .calc-step-btn    { padding: 5px 7px; font-size: .68rem; }
-#focusExtraInner .calc-result      { padding: 8px 10px; gap: 14px; margin-top: 4px; }
-#focusExtraInner .calc-res-val     { font-size: .85rem; }
-#focusExtraInner .calc-res-lbl     { font-size: .5rem; }
-#focusExtraInner .insta-rounds-grid { padding: 10px 12px 12px; gap: 6px; }
-#focusExtraInner .insta-round-chip { font-size: .6rem; padding: 6px 8px; min-width: 36px; }
-#focusExtraInner .nuke-timing-grid { padding: 10px 12px 12px; gap: 6px; }
-#focusExtraInner .nuke-timing-chip { padding: 6px 8px; min-width: 44px; }
-#focusExtraInner .nuke-r           { font-size: .58rem; }
-#focusExtraInner .nuke-t           { font-size: .68rem; }
-#focusExtraInner .nuke-player-tabs { padding: 8px 12px 2px; gap: 4px; }
-#focusExtraInner .nuke-tab         { font-size: .65rem; padding: 3px 10px; }
-#focusExtraInner .instabug-note    { font-size: .78rem; padding: 8px 12px 4px; }
+#focusExtraInner .calc-select,
+#focusExtraInner2 .calc-input,
+#focusExtraInner2 .calc-select      { font-size: .72rem; padding: 6px 8px; }
+#focusExtraInner .calc-step-btn,
+#focusExtraInner2 .calc-step-btn    { padding: 5px 7px; font-size: .68rem; }
+#focusExtraInner .calc-result,
+#focusExtraInner2 .calc-result      { padding: 8px 10px; gap: 14px; margin-top: 4px; }
+#focusExtraInner .calc-res-val,
+#focusExtraInner2 .calc-res-val     { font-size: .85rem; }
+#focusExtraInner .calc-res-lbl,
+#focusExtraInner2 .calc-res-lbl     { font-size: .5rem; }
+#focusExtraInner .insta-rounds-grid,
+#focusExtraInner2 .insta-rounds-grid { padding: 10px 12px 12px; gap: 6px; }
+#focusExtraInner .insta-round-chip,
+#focusExtraInner2 .insta-round-chip { font-size: .6rem; padding: 6px 8px; min-width: 36px; }
+#focusExtraInner .nuke-timing-grid,
+#focusExtraInner2 .nuke-timing-grid { padding: 10px 12px 12px; gap: 6px; }
+#focusExtraInner .nuke-timing-chip,
+#focusExtraInner2 .nuke-timing-chip { padding: 6px 8px; min-width: 44px; }
+#focusExtraInner .nuke-r,
+#focusExtraInner2 .nuke-r           { font-size: .58rem; }
+#focusExtraInner .nuke-t,
+#focusExtraInner2 .nuke-t           { font-size: .68rem; }
+#focusExtraInner .nuke-player-tabs,
+#focusExtraInner2 .nuke-player-tabs { padding: 8px 12px 2px; gap: 4px; }
+#focusExtraInner .nuke-tab,
+#focusExtraInner2 .nuke-tab         { font-size: .65rem; padding: 3px 10px; }
+#focusExtraInner .instabug-note,
+#focusExtraInner2 .instabug-note    { font-size: .78rem; padding: 8px 12px 4px; }
 
 /* ── Responsive ── */
 @media(max-width:860px) {

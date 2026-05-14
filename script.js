@@ -243,9 +243,9 @@ const MAPS = [
   { id:'bo2_farm',     name:'Farm',              game:'bo2', thumb:'imagenes/maps/Farm/thumbnail.webp',              caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
   { id:'bo2_nuketown', name:'Nuketown Zombies',  game:'bo2', thumb:'imagenes/maps/Nuketown Zombies/thumbnail.webp',  caps:{fs:true,dm:false,carp:false}, boss:{type:'none'}, locs:[
     { id:'bunker1',  name:'Bunker 1',   img:'imagenes/maps/Nuketown Zombies/BUNKER 1.png',  imgFit:'cover' },
-    { id:'casa1',    name:'Casa 1',     img:'imagenes/maps/Nuketown Zombies/CASA 1.png',    imgFit:'cover' },
-    { id:'casaazul', name:'Casa Azul',  img:'imagenes/maps/Nuketown Zombies/CASA AZUL.png', imgFit:'cover' },
-    { id:'garaje',   name:'Garaje',     img:'imagenes/maps/Nuketown Zombies/GARAJE.png',    imgFit:'cover', imgPos:'center 40%' },
+    { id:'casa1',    name:'House 1',    img:'imagenes/maps/Nuketown Zombies/CASA 1.png',    imgFit:'cover' },
+    { id:'casaazul', name:'Blue House', img:'imagenes/maps/Nuketown Zombies/CASA AZUL.png', imgFit:'cover' },
+    { id:'garaje',   name:'Garage',     img:'imagenes/maps/Nuketown Zombies/GARAJE.png',    imgFit:'cover', imgPos:'center 40%' },
     { id:'yellow',   name:'Yellow',     img:'imagenes/maps/Nuketown Zombies/YELLOW.png',    imgFit:'cover' },
   ] },
   { id:'bo2_dierise',  name:'Die Rise',          game:'bo2', thumb:'imagenes/maps/Die Rise/thumbnail.webp',          caps:{fs:false,dm:false}, boss:{type:'none'}, locs:[] },
@@ -1319,8 +1319,8 @@ document.getElementById('btnClearAllBox').addEventListener('click', clearAllBox)
 document.getElementById('btnBack').addEventListener('click', goBack);
 
 // ─── Focus mode ──────────────────────────────────────────────────────────────
-let focusMode       = false;
-let focusExtraMoved = null; // { el, parent, nextSibling }
+let focusMode        = false;
+let focusExtraMoved  = [null, null];
 
 const FOCUS_EXTRA_OPTIONS = [
   { id:'c1',       label:'Zombie Round Stats',     bodyId:'calcBody',      openItem:'Zombie Round Stats' },
@@ -1332,6 +1332,10 @@ const FOCUS_EXTRA_OPTIONS = [
   { id:'instabug', label:'Instabug',               bodyId:'resourcesBody', openItem:'Instabug' },
   { id:'nuke1p',   label:'Nuke Timing',            bodyId:'resourcesBody', openItem:'Nuke Timing' },
 ];
+
+function getExtraInner(slot) {
+  return document.getElementById(slot === 0 ? 'focusExtraInner' : 'focusExtraInner2');
+}
 
 function openAccordionItem(accordionEl, title) {
   accordionEl.querySelectorAll('.calc-item').forEach(item => {
@@ -1345,38 +1349,58 @@ function openAccordionItem(accordionEl, title) {
   });
 }
 
-function restoreFocusExtra() {
-  if (focusExtraMoved) {
-    const { el, parent, nextSibling } = focusExtraMoved;
-    // restore all hidden accordion items
-    el.querySelectorAll('.calc-item').forEach(item => item.style.display = '');
-    el.classList.remove('focus-extra-visible');
-    parent.insertBefore(el, nextSibling);
-    focusExtraMoved = null;
+function restoreFocusExtraSlot(slot) {
+  const moved = focusExtraMoved[slot];
+  if (moved) {
+    moved.el.querySelectorAll('.calc-item').forEach(item => item.style.display = '');
+    moved.el.classList.remove('focus-extra-visible');
+    moved.parent.insertBefore(moved.el, moved.nextSibling);
+    focusExtraMoved[slot] = null;
   }
-  renderFocusExtraSlot(false);
+  if (slot === 1) {
+    const inner2 = getExtraInner(1);
+    inner2.innerHTML = ''; inner2.style.display = 'none';
+  } else {
+    renderFocusExtraSlot(0, false);
+  }
 }
 
-function selectFocusExtra(opt) {
-  const inner = document.getElementById('focusExtraInner');
+function restoreFocusExtra() {
+  restoreFocusExtraSlot(1);
+  restoreFocusExtraSlot(0);
+}
+
+function getAvailableOptions(slot) {
+  const showRes = ['bo1','waw'].includes(currentMap?.game ?? 'bo1');
+  const usedBodies = focusExtraMoved.filter(Boolean).map(m => m.bodyId);
+  return FOCUS_EXTRA_OPTIONS.filter(opt => {
+    if (!showRes && opt.bodyId === 'resourcesBody') return false;
+    if (slot > 0 && usedBodies.includes(opt.bodyId)) return false;
+    return true;
+  });
+}
+
+function selectFocusExtra(opt, slot) {
+  const inner = getExtraInner(slot);
   inner.innerHTML = '';
 
-  // header
   const hdr = document.createElement('div'); hdr.className = 'focus-extra-header';
   const lbl = document.createElement('p'); lbl.className = 'sec-title'; lbl.style.cssText = 'margin:0;display:inline';
   lbl.textContent = opt.label;
   const chg = document.createElement('button'); chg.className = 'btn-change-extra'; chg.textContent = '↺ Change';
-  chg.addEventListener('click', () => { restoreFocusExtra(); renderFocusExtraSlot(true); });
+  chg.addEventListener('click', () => {
+    if (slot === 0) restoreFocusExtraSlot(1);
+    restoreFocusExtraSlot(slot);
+    renderFocusExtraSlot(slot, true);
+  });
   hdr.appendChild(lbl); hdr.appendChild(chg);
   inner.appendChild(hdr);
 
-  // content div — in DOM before moving bodyEl into it
-  const content = document.createElement('div'); content.id = 'focusExtraContent';
+  const content = document.createElement('div'); content.id = 'focusExtraContent' + slot;
   inner.appendChild(content);
 
-  // move body into content
   const bodyEl = document.getElementById(opt.bodyId);
-  focusExtraMoved = { el: bodyEl, parent: bodyEl.parentNode, nextSibling: bodyEl.nextSibling };
+  focusExtraMoved[slot] = { el: bodyEl, parent: bodyEl.parentNode, nextSibling: bodyEl.nextSibling, bodyId: opt.bodyId };
   content.appendChild(bodyEl);
   bodyEl.classList.add('focus-extra-visible');
   bodyEl.style.display = '';
@@ -1384,20 +1408,26 @@ function selectFocusExtra(opt) {
     const acc = bodyEl.querySelector('.calc-accordion');
     if (acc) openAccordionItem(acc, opt.openItem);
   }
+
+  if (slot === 0) {
+    const inner2 = getExtraInner(1);
+    inner2.style.display = '';
+    renderFocusExtraSlot(1, false);
+  }
 }
 
-function renderFocusExtraSlot(showPicker) {
-  const inner = document.getElementById('focusExtraInner');
+function renderFocusExtraSlot(slot, showPicker) {
+  const inner = getExtraInner(slot);
   inner.innerHTML = '';
+  const opts = getAvailableOptions(slot);
+  if (!opts.length) return;
 
   if (showPicker) {
     const picker = document.createElement('div'); picker.className = 'focus-extra-picker';
-    const showRes = ['bo1','waw'].includes(currentMap?.game ?? 'bo1');
-    FOCUS_EXTRA_OPTIONS.forEach(opt => {
-      if (!showRes && opt.bodyId === 'resourcesBody') return;
+    opts.forEach(opt => {
       const btn = document.createElement('button'); btn.className = 'btn-extra-option';
       btn.textContent = opt.label;
-      btn.addEventListener('click', () => selectFocusExtra(opt));
+      btn.addEventListener('click', () => selectFocusExtra(opt, slot));
       picker.appendChild(btn);
     });
     inner.appendChild(picker);
@@ -1406,7 +1436,7 @@ function renderFocusExtraSlot(showPicker) {
 
   const btn = document.createElement('button'); btn.className = 'btn-add-extra';
   btn.textContent = '+ Add Section';
-  btn.addEventListener('click', () => renderFocusExtraSlot(true));
+  btn.addEventListener('click', () => renderFocusExtraSlot(slot, true));
   inner.appendChild(btn);
 }
 
@@ -1414,7 +1444,7 @@ document.getElementById('btnFocus').addEventListener('click', () => {
   focusMode = !focusMode;
   document.getElementById('screenTracker').classList.toggle('focus-mode', focusMode);
   document.getElementById('btnFocus').classList.toggle('fm-active', focusMode);
-  if (focusMode) renderFocusExtraSlot(false);
+  if (focusMode) renderFocusExtraSlot(0, false);
   else restoreFocusExtra();
 });
 document.getElementById('toggleCarp').addEventListener('click', () => onToggle('toggleCarp'));
