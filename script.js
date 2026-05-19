@@ -401,8 +401,6 @@ function buildMapSelector() {
   const cols = gameMaps.length <= 4 ? gameMaps.length : 5;
   grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   gameMaps.forEach(map => {
-    const ms     = getMS(map.id);
-    const cycles = ms.cycleNum - 1;
     const el     = document.createElement('div');
     el.className = 'map-card';
     el.innerHTML = `
@@ -412,7 +410,7 @@ function buildMapSelector() {
       </div>
       <div class="map-card-footer">
         <span class="map-card-name">${map.name}</span>
-        <span class="map-card-info">${map.locs.length ? map.locs.length + ' locations · ' + cycles + ' cycle' + (cycles !== 1 ? 's' : '') : 'Drops only'}</span>
+        <span class="map-card-info">${map.locs.length ? map.locs.length + ' locations' : 'Drops only'}</span>
       </div>`;
     el.addEventListener('click', () => selectMap(map.id));
     grid.appendChild(el);
