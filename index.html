@@ -77,6 +77,28 @@
     </div>
     </div>
 
+    <!-- ── Gobblegum Cycle (BO3 only) ── -->
+    <div class="tracker-section" id="sectionGum" style="display:none">
+      <p class="sec-title" id="gumSecTitle">Gobblegum Cycle <button class="btn-minimize" id="btnMinGum" title="Minimize">▲</button></p>
+      <div id="gumCycleBody">
+        <div id="gumContent"></div>
+        <div class="controls" id="gumControls" style="display:none">
+          <button class="btn btn-reset"  id="btnGumReset">⟳&ensp;Reset Cycle</button>
+          <button class="btn btn-hist"   id="btnGumHist">▼&ensp;Cycle History</button>
+          <button class="btn btn-danger" id="btnClearAllGum">✕&ensp;Clear All</button>
+        </div>
+        <div class="history-wrap" id="gumHistWrap">
+          <div class="history-head">
+            <span class="history-title">Last 20 Cycles</span>
+            <span class="history-cnt"   id="gumHistCnt">0 cycles</span>
+          </div>
+          <div class="history-list" id="gumHistList">
+            <div class="h-empty"><span>📋</span>No completed cycles yet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── Box Cycle ── -->
     <div class="tracker-section" id="sectionBox">
     <p class="sec-title" id="boxSecTitle">Mystery Box Locations <button class="btn-minimize" id="btnMinBox" title="Minimize">▲</button></p>

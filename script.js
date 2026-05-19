@@ -1,5 +1,5 @@
 ﻿// ─── Drop definitions ─────────────────────────────────────────────────────────
-const ZIMG = 'https://www.zombacus.com/images/icons/';
+const ZIMG = 'imagenes/icons/';
 const DR = {
   ammo:  { id:'ammo',  name:'Max Ammo',       img: ZIMG+'ammo.png'  },
   insta: { id:'insta', name:'Insta Kill',      img: ZIMG+'insta.png' },
@@ -8,8 +8,77 @@ const DR = {
   carp:  { id:'carp',  name:'Carpenter',       img: ZIMG+'carp.png'  },
   fs:    { id:'fs',    name:'Fire Sale',       img: ZIMG+'fs.png'    },
   dm:    { id:'dm',    name:'Death Machine',   img: ZIMG+'dm.png'    },
-  zb:    { id:'zb',   name:'Zombie Blood',    img: ZIMG+'zb.png'    },
+  zb:       { id:'zb',       name:'Zombie Blood', img: ZIMG+'zb.png'       },
+  tramfuse: { id:'tramfuse', name:'Tram Fuse',   img: 'imagenes/mapasblackops3/tramfuse.png' },
 };
+
+// ─── Gobblegum definitions ───────────────────────────────────────────────────
+const GUM_IMG = 'imagenes/gums/';
+const GUMS = [
+  { id:'aftertaste',               name:'Aftertaste',               img: GUM_IMG+'Aftertaste_GobbleGum_BO3.webp' },
+  { id:'alchemical_antithesis',    name:'Alchemical Antithesis',    img: GUM_IMG+'Alchemical_Antithesis_GobbleGum_BO3.webp' },
+  { id:'always_done_swiftly',      name:'Always Done Swiftly',      img: GUM_IMG+'Always_Done_Swiftly_GobbleGum_BO3.webp' },
+  { id:'anywhere_but_here',        name:'Anywhere But Here',        img: GUM_IMG+'Anywhere_But_Here.webp' },
+  { id:'armamental_accomplishment', name:'Armamental Accomplishment', img: GUM_IMG+'Armamental_Accomplishment_GobbleGum_BO3.webp' },
+  { id:'arms_grace',               name:"Arm's Grace",              img: GUM_IMG+'Arms_Grace_GobbleGum_BO3.webp' },
+  { id:'arsenal_accelerator',      name:'Arsenal Accelerator',      img: GUM_IMG+'Arsenal_Accelerator_GobbleGum_BO3.webp' },
+  { id:'board_games',              name:'Board Games',              img: GUM_IMG+'Board_Games_GobbleGum_BO3.webp' },
+  { id:'board_to_death',           name:'Board to Death',           img: GUM_IMG+'Board_To_Death.webp' },
+  { id:'bullet_boost',             name:'Bullet Boost',             img: GUM_IMG+'Bullet_Boost_GobbleGum_BO3.webp' },
+  { id:'burned_out',               name:'Burned Out',               img: GUM_IMG+'Burned_Out_GobbleGum_BO3.webp' },
+  { id:'cache_back',               name:'Cache Back',               img: GUM_IMG+'Cache_Back_GobbleGum_BO3.webp' },
+  { id:'coagulant',                name:'Coagulant',                img: GUM_IMG+'Coagulant_GobbleGum_BO3.webp' },
+  { id:'crate_power',              name:'Crate Power',              img: GUM_IMG+'Crate_Power_GobbleGum_BO3.webp' },
+  { id:'crawl_space',              name:'Crawl Space',              img: GUM_IMG+'Crawl_Space_GobbleGum_BO3.webp' },
+  { id:'danger_closest',           name:'Danger Closest',           img: GUM_IMG+'Danger_Closest_GobbleGum_BO3.webp' },
+  { id:'dead_of_nuclear_winter',   name:'Dead of Nuclear Winter',   img: GUM_IMG+'Dead_of_Nuclear_Winter_GobbleGum_BO3.webp' },
+  { id:'disorderly_combat',        name:'Disorderly Combat',        img: GUM_IMG+'Disorderly_Combat_GobbleGum_BO3.webp' },
+  { id:'ephemeral_enhancement',    name:'Ephemeral Enhancement',    img: GUM_IMG+'Ephemeral_Enhancement_GobbleGum_BO3.webp' },
+  { id:'extra_credit',             name:'Extra Credit',             img: GUM_IMG+'Extra_Credit.webp' },
+  { id:'eye_candy',                name:'Eye Candy',                img: GUM_IMG+'Eye_Candy.webp' },
+  { id:'fatal_contraption',        name:'Fatal Contraption',        img: GUM_IMG+'Fatal_Contraption_GobbleGum_BO3.webp' },
+  { id:'fear_in_headlights',       name:'Fear in Headlights',       img: GUM_IMG+'Fear_in_Headlights_GobbleGum_BO3.webp' },
+  { id:'firing_on_all_cylinders',  name:'Firing On All Cylinders',  img: GUM_IMG+'Firing_On_All_Cylinders_GobbleGum_BO3.webp' },
+  { id:'flavor_hexed',             name:'Flavor Hexed',             img: GUM_IMG+'Flavor_Hexed_GobbleGum_BO3.webp' },
+  { id:'head_drama',               name:'Head Drama',               img: GUM_IMG+'Head_Drama_GobbleGum_BO3.webp' },
+  { id:'im_feeling_lucky',         name:"I'm Feeling Lucky",        img: GUM_IMG+'Im_Feeling_Lucky_GobbleGum_BO3.webp' },
+  { id:'idle_eyes',                name:'Idle Eyes',                img: GUM_IMG+'Idle_Eyes_GobbleGum_BO3.webp' },
+  { id:'immolation_liquidation',   name:'Immolation Liquidation',   img: GUM_IMG+'Immolation_Liquidation_GobbleGum_BO3.webp' },
+  { id:'impatient',                name:'Impatient',                img: GUM_IMG+'Impatient_GobbleGum_BO3.webp' },
+  { id:'in_plain_sight',           name:'In Plain Sight',           img: GUM_IMG+'In_Plain_Sight_GobbleGum_BO3.webp' },
+  { id:'kill_joy',                 name:'Kill Joy',                 img: GUM_IMG+'Kill_Joy_GobbleGum_BO3.webp' },
+  { id:'killing_time',             name:'Killing Time',             img: GUM_IMG+'Killing_Time_GobbleGum_BO3.webp' },
+  { id:'licensed_contractor',      name:'Licensed Contractor',      img: GUM_IMG+'Licensed_Contractor_GobbleGum_BO3.webp' },
+  { id:'lucky_crit',               name:'Lucky Crit',               img: GUM_IMG+'Lucky_Crit_GobbleGum_BO3.webp' },
+  { id:'mind_blown',               name:'Mind Blown',               img: GUM_IMG+'Mind_Blown_GobbleGum_BO3.webp' },
+  { id:'near_death_experience',    name:'Near Death Experience',    img: GUM_IMG+'Near_Death_Experience_GobbleGum_BO3.webp' },
+  { id:'newtonian_negation',       name:'Newtonian Negation',       img: GUM_IMG+'Newtonian_Negation_GobbleGum_BO3.webp' },
+  { id:'now_you_see_me',           name:'Now You See Me',           img: GUM_IMG+'Now_You_See_Me_GobbleGum_BO3.webp' },
+  { id:'on_the_house',             name:'On the House',             img: GUM_IMG+'On_the_House_GobbleGum_BO3.webp' },
+  { id:'perkaholic',               name:'Perkaholic',               img: GUM_IMG+'Perkaholic_GobbleGum_BO3.webp' },
+  { id:'phoenix_up',               name:'Phoenix Up',               img: GUM_IMG+'Phoenix_Up_GobbleGum_BO3.webp' },
+  { id:'pop_shocks',               name:'Pop Shocks',               img: GUM_IMG+'Pop_Shocks_GobbleGum_BO3.webp' },
+  { id:'power_vacuum',             name:'Power Vacuum',             img: GUM_IMG+'Power_Vacuum_GobbleGum_BO3.webp' },
+  { id:'profit_sharing',           name:'Profit Sharing',           img: GUM_IMG+'Profit_Sharing_GobbleGum_BO3.webp' },
+  { id:'projectile_vomiting',      name:'Projectile Vomiting',      img: GUM_IMG+'Projectile_Vomiting_GobbleGum_BO3.webp' },
+  { id:'reign_drops',              name:'Reign Drops',              img: GUM_IMG+'Reign_Drops_GobbleGum_BO3.webp' },
+  { id:'respin_cycle',             name:'Respin Cycle',             img: GUM_IMG+'Respin_Cycle_GobbleGum_BO3.webp' },
+  { id:'round_robbin',             name:"Round Robbin'",            img: GUM_IMG+'Round_Robbin_GobbleGum_BO3.webp' },
+  { id:'secret_shopper',           name:'Secret Shopper',           img: GUM_IMG+'Secret_Shopper_GobbleGum_BO3.webp' },
+  { id:'self_medication',          name:'Self Medication',          img: GUM_IMG+'Self_Medication_GobbleGum_BO3.webp' },
+  { id:'shopping_free',            name:'Shopping Free',            img: GUM_IMG+'Shopping_Free_GobbleGum_BO3.webp' },
+  { id:'slaughter_slide',          name:'Slaughter Slide',          img: GUM_IMG+'Slaughter_Slide_GobbleGum_BO3.webp' },
+  { id:'soda_fountain',            name:'Soda Fountain',            img: GUM_IMG+'Soda_Fountain.webp' },
+  { id:'stock_option',             name:'Stock Option',             img: GUM_IMG+'Stock_Option_GobbleGum_BO3.webp' },
+  { id:'sword_flay',               name:'Sword Flay',               img: GUM_IMG+'Sword_Flay_GobbleGum_BO3.webp' },
+  { id:'temporal_gift',            name:'Temporal Gift',            img: GUM_IMG+'Temporal_Gift_GobbleGum_BO3.webp' },
+  { id:'tone_death',               name:'Tone Death',               img: GUM_IMG+'Tone_Death.webp' },
+  { id:'unbearable',               name:'Unbearable',               img: GUM_IMG+'Unbearable_GobbleGum_BO3.webp' },
+  { id:'undead_man_walking',       name:'Undead Man Walking',       img: GUM_IMG+'Undead_Man_Walking_GobbleGum_BO3.webp' },
+  { id:'unquenchable',             name:'Unquenchable',             img: GUM_IMG+'Unquenchable_GobbleGum_BO3.webp' },
+  { id:'wall_power',               name:'Wall Power',               img: GUM_IMG+'Wall_Power_GobbleGum_BO3.webp' },
+  { id:'whos_who',                 name:"Who's Who",                img: GUM_IMG+'Whos_Who_GobbleGum_BO3.webp' },
+];
 
 // ─── Zombie count lookup table [p1,p2,p3,p4] per round ───────────────────────
 const ZC=[
@@ -299,6 +368,21 @@ const MAPS = [
       { id:'catwalk',   name:'Catwalk',    img: gh('Der Riese', 'Catwalk')   },
     ],
   },
+  // ── Black Ops 3 maps ──
+  { id:'bo3_shadows',     name:'Shadows of Evil',    game:'bo3', thumb:'imagenes/mapasblackops3/Shadows_of_Evil_Menu_Icon_BOIII.webp',         caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_thegiant',    name:'The Giant',           game:'bo3', thumb:'imagenes/mapasblackops3/The_Giant_Menu_Selection_BO3.webp',            caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_eisendrache', name:'Der Eisendrache',     game:'bo3', thumb:'imagenes/mapasblackops3/Dereisendrache01.webp',                        caps:{fs:true,dm:true,tramfuse:true},         boss:{type:'none'}, locs:[] },
+  { id:'bo3_zetsubou',    name:'Zetsubou No Shima',   game:'bo3', thumb:'imagenes/mapasblackops3/Zetsubou_No_Shima_Menu_Selection_BO3.webp',    caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_gorodkrovi',  name:'Gorod Krovi',         game:'bo3', thumb:'imagenes/mapasblackops3/GorodKrovi_DLC3_BO3.webp',                     caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_revelations', name:'Revelations',         game:'bo3', thumb:'imagenes/mapasblackops3/Revelations_Menu_Selection_BO3.webp',          caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_nacht',       name:'Nacht der Untoten',   game:'bo3', thumb:'imagenes/maps/Nacht der Untoten/thumbnail.jpg',                        caps:{fs:false,dm:false,dmBase:true}, boss:{type:'none'}, locs:[] },
+  { id:'bo3_shinuma',     name:'Shi No Numa',         game:'bo3', thumb:'imagenes/maps/Shi No Numa/thumbnail.webp',                             caps:{fs:true,dm:false,dmBase:true},  boss:{type:'none'}, locs:[] },
+  { id:'bo3_verruckt',    name:'Verrückt',            game:'bo3', thumb:'imagenes/maps/Verruckt/thumbnail.webp',                                caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_kino',        name:'Kino Der Toten',      game:'bo3', thumb:'imagenes/maps/Kino Der Toten/thumbnail.webp',                          caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_ascension',   name:'Ascension',           game:'bo3', thumb:'imagenes/maps/Ascension/thumbnail.webp',                               caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_shangrila',   name:'Shangri-La',          game:'bo3', thumb:'imagenes/maps/Shangri-La/thumbnail.webp',                              caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_moon',        name:'Moon',                game:'bo3', thumb:'imagenes/maps/Moon/thumbnail.webp',                                    caps:{fs:true,dm:true},                       boss:{type:'none'}, locs:[] },
+  { id:'bo3_origins',     name:'Origins',             game:'bo3', thumb:'imagenes/maps/Origins/thumbnail.webp',                                 caps:{fs:true,dm:false,zb:true},              boss:{type:'none'}, locs:[] },
 ];
 
 // ─── Game selector ───────────────────────────────────────────────────────────
@@ -309,7 +393,7 @@ const GAMES = [
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(200,30,30,.5) 0%, rgba(8,4,4,.97) 65%)' },
   { id:'bo2', label:'Black Ops', num:'II',  year:'2012', available: true,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(20,130,150,.45) 0%, rgba(4,10,14,.97) 65%)' },
-  { id:'bo3', label:'Black Ops', num:'III', year:'2015', available: false,
+  { id:'bo3', label:'Black Ops', num:'III', year:'2015', available: true,
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(90,30,200,.45) 0%, rgba(5,4,16,.97) 65%)' },
 ];
 
@@ -333,14 +417,14 @@ function buildGameSelector() {
   });
 }
 
-const GAME_TITLES = { bo1: 'BLACK OPS 1', waw: 'WORLD AT WAR', bo2: 'BLACK OPS 2' };
+const GAME_TITLES = { bo1: 'BLACK OPS 1', waw: 'WORLD AT WAR', bo2: 'BLACK OPS 2', bo3: 'BLACK OPS 3' };
 
 function selectGame(id) {
   currentGame = id;
   document.getElementById('screenGame').style.display    = 'none';
   document.getElementById('screenSelect').style.display  = '';
   document.getElementById('mapTitle').textContent        = 'ZOMBIES TRACKER';
-  const opLabels = { bo1: 'Black Ops 1', waw: 'World at War', bo2: 'Black Ops 2' };
+  const opLabels = { bo1: 'Black Ops 1', waw: 'World at War', bo2: 'Black Ops 2', bo3: 'Black Ops 3' };
   document.getElementById('opLabel').textContent        = '—   ' + (opLabels[id] || id) + '   —';
   document.getElementById('opLabel').style.visibility   = 'visible';
   document.getElementById('btnBack').style.display      = 'inline-flex';
@@ -355,6 +439,7 @@ function getMS(id) {
     history: [], cycleNum: 1,
     dropHistory: [], dropCycleNum: 1,
     bossRounds: [],
+    gumSelection: [null,null,null,null,null], gumMap: {}, gumRoute: [], gumCounter: 0, gumCycleNum: 1, gumHistory: [],
   };
   return mapState[id];
 }
@@ -381,10 +466,12 @@ let toggles     = { carp: false, fs: false, dm: false };
 
 function getActiveDrops() {
   const list = [DR.ammo, DR.insta, DR.dp, DR.nuke];
-  if (toggles.carp)                       list.push(DR.carp);
-  if (toggles.fs  && currentMap.caps.fs)  list.push(DR.fs);
-  if (toggles.dm  && currentMap.caps.dm)  list.push(DR.dm);
-  if (currentMap.caps.zb)                 list.push(DR.zb);
+  if (toggles.carp)                        list.push(DR.carp);
+  if (toggles.fs   && currentMap.caps.fs)  list.push(DR.fs);
+  if (toggles.dm   && currentMap.caps.dm)  list.push(DR.dm);
+  if (currentMap.caps.zb)                  list.push(DR.zb);
+  if (currentMap.caps.dmBase)              list.push(DR.dm);
+  if (currentMap.caps.tramfuse)            list.push(DR.tramfuse);
   return list;
 }
 
@@ -429,29 +516,42 @@ function selectMap(id) {
   document.getElementById('btnFocus').style.display      = 'flex';
 
   // close any open history panels
-  ['histWrap', 'dropHistWrap'].forEach(wid => {
+  ['histWrap', 'dropHistWrap', 'gumHistWrap'].forEach(wid => {
     document.getElementById(wid).classList.remove('open');
   });
   document.getElementById('btnHist').classList.remove('open');
   document.getElementById('btnHist').innerHTML = '▼&ensp;Cycle History';
   document.getElementById('btnDropHist').classList.remove('open');
   document.getElementById('btnDropHist').innerHTML = '▼&ensp;Drop History';
+  document.getElementById('btnGumHist').classList.remove('open');
+  document.getElementById('btnGumHist').innerHTML = '▼&ensp;Cycle History';
 
   // reset minimize state
-  dropCollapsed = false; specialCollapsed = false; boxCollapsed = false; resourcesCollapsed = false;
+  gumCollapsed = false; dropCollapsed = false; specialCollapsed = false; boxCollapsed = false; resourcesCollapsed = false;
+  document.getElementById('gumCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('dropCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('specialCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('boxCycleBody').classList.remove('cycle-body-collapsed');
   document.getElementById('resourcesBody').classList.remove('cycle-body-collapsed');
+  document.getElementById('btnMinGum').textContent       = '▲';
   document.getElementById('btnMinDrop').textContent      = '▲';
   document.getElementById('btnMinSpecial').textContent   = '▲';
   document.getElementById('btnMinBox').textContent       = '▲';
   document.getElementById('btnMinResources').textContent = '▲';
 
-  // show/hide resources section (BO1 and WaW only)
-  const showResources = ['bo1', 'waw'].includes(currentMap.game ?? 'bo1');
+  // show/hide gobblegum section (BO3 only)
+  const isBO3 = (currentMap.game ?? 'bo1') === 'bo3';
+  document.getElementById('sectionGum').style.display = isBO3 ? '' : 'none';
+  if (isBO3) buildGumSection();
+
+  // show/hide resources section
+  const game = currentMap.game ?? 'bo1';
+  const showResources = ['bo1', 'waw', 'bo3'].includes(game);
   document.getElementById('resourcesSecTitle').style.display = showResources ? '' : 'none';
   document.getElementById('resourcesBody').style.display     = showResources ? '' : 'none';
+  document.querySelectorAll('#resourcesAccordion .calc-item[data-games]').forEach(item => {
+    item.style.display = item.dataset.games.split(',').includes(game) ? '' : 'none';
+  });
 
   // show/hide box section based on whether map has locations
   const hasBox = currentMap.locs.length > 0;
@@ -1162,6 +1262,7 @@ function makeAccordionItem(acc, title, buildBodyFn) {
     header.classList.toggle('open', open);
   });
   item.appendChild(header); item.appendChild(body); acc.appendChild(item);
+  return item;
 }
 
 function buildResources() {
@@ -1199,7 +1300,7 @@ function buildResources() {
       grid.appendChild(chip);
     });
     body.appendChild(grid);
-  });
+  }).dataset.games = 'bo1,waw';
 
   makeAccordionItem(acc, 'Instakill Rounds', body => {
     const grid = document.createElement('div'); grid.className = 'insta-rounds-grid';
@@ -1221,7 +1322,7 @@ function buildResources() {
       grid.appendChild(chip);
     });
     body.appendChild(grid);
-  });
+  }).dataset.games = 'bo1,waw';
 }
 
 function renderNukeGrid(playerIndex) {
@@ -1263,7 +1364,196 @@ function refreshNukeTiming() {
   }
 }
 
+// ─── Gobblegum cycle ─────────────────────────────────────────────────────────
+
+function buildGumSection() {
+  document.getElementById('gumControls').style.display = '';
+  renderGumSlots();
+}
+
+function renderGumSlots() {
+  const ms      = getMS(currentMap.id);
+  const content = document.getElementById('gumContent');
+  content.innerHTML = '';
+  const grid = document.createElement('div'); grid.className = 'gum-tracker-grid';
+  for (let i = 0; i < 5; i++) {
+    const gumId = ms.gumSelection[i];
+    const card  = document.createElement('div');
+    if (!gumId) {
+      card.className = 'gum-slot gum-slot-empty';
+      const addBtn = document.createElement('button'); addBtn.className = 'gum-add-btn'; addBtn.textContent = '+';
+      const lbl = document.createElement('span'); lbl.className = 'gum-slot-label'; lbl.textContent = 'Add Gum';
+      card.appendChild(addBtn); card.appendChild(lbl);
+      addBtn.addEventListener('click', () => openGumModal(i));
+    } else {
+      const gum  = GUMS.find(g => g.id === gumId);
+      const order = ms.gumMap[i];
+      const done  = !!order;
+      card.className = 'gum-card' + (done ? ' g-done' : '');
+      card.id = 'gcard-' + i;
+      card.innerHTML = `<div class="gum-badge" id="gbadge-${i}">${done ? order : ''}</div><img src="${gum.img}" alt="${gum.name}" draggable="false"><span class="gum-card-name">${gum.name}</span>`;
+      card.addEventListener('click', () => onGumClick(i));
+    }
+    grid.appendChild(card);
+  }
+  content.appendChild(grid);
+}
+
+function renderGumCards() {
+  const ms = getMS(currentMap.id);
+  ms.gumSelection.forEach((gumId, i) => {
+    if (!gumId) return;
+    const card  = document.getElementById('gcard-' + i);
+    const badge = document.getElementById('gbadge-' + i);
+    if (!card || !badge) return;
+    const order = ms.gumMap[i];
+    card.className    = 'gum-card' + (order ? ' g-done' : '');
+    badge.textContent = order ? order : '';
+  });
+}
+
+let gumModalSlot = -1;
+
+function openGumModal(slotIndex) {
+  gumModalSlot = slotIndex;
+  const ms    = getMS(currentMap.id);
+  const taken = ms.gumSelection.filter((id, i) => id && i !== slotIndex);
+
+  const overlay = document.createElement('div'); overlay.id = 'gumModalOverlay'; overlay.className = 'gum-modal-overlay';
+  const modal   = document.createElement('div'); modal.className = 'gum-modal';
+
+  const head     = document.createElement('div'); head.className = 'gum-modal-head';
+  const title    = document.createElement('span'); title.className = 'gum-modal-title'; title.textContent = 'Choose a Gobblegum';
+  const closeBtn = document.createElement('button'); closeBtn.className = 'gum-modal-close'; closeBtn.textContent = '✕';
+  closeBtn.addEventListener('click', closeGumModal);
+  head.appendChild(title); head.appendChild(closeBtn);
+
+  const search = document.createElement('input');
+  search.className = 'gum-modal-search'; search.type = 'text'; search.placeholder = 'Search…';
+
+  const grid = document.createElement('div'); grid.className = 'gum-modal-grid';
+
+  function renderModalGrid(filter) {
+    grid.innerHTML = '';
+    GUMS.filter(g => !taken.includes(g.id) && g.name.toLowerCase().includes(filter.toLowerCase()))
+      .forEach(gum => {
+        const card = document.createElement('div'); card.className = 'gum-picker-card';
+        card.innerHTML = `<img src="${gum.img}" alt="${gum.name}" draggable="false"><span class="gum-picker-name">${gum.name}</span>`;
+        card.addEventListener('click', () => { selectGumForSlot(slotIndex, gum.id); closeGumModal(); });
+        grid.appendChild(card);
+      });
+  }
+  renderModalGrid('');
+  search.addEventListener('input', () => renderModalGrid(search.value));
+
+  modal.appendChild(head); modal.appendChild(search); modal.appendChild(grid);
+  overlay.appendChild(modal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeGumModal(); });
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+  search.focus();
+}
+
+function closeGumModal() {
+  const overlay = document.getElementById('gumModalOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('visible');
+  overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+}
+
+function selectGumForSlot(slotIndex, gumId) {
+  const ms = getMS(currentMap.id);
+  ms.gumSelection[slotIndex] = gumId;
+  if (ms.gumMap[slotIndex]) {
+    ms.gumRoute   = ms.gumRoute.filter(s => s !== slotIndex);
+    delete ms.gumMap[slotIndex];
+    ms.gumRoute.forEach((s, i) => { ms.gumMap[s] = i + 1; });
+    ms.gumCounter = ms.gumRoute.length;
+  }
+  renderGumSlots();
+}
+
+function onGumClick(slotIndex) {
+  const ms = getMS(currentMap.id);
+  if (!ms.gumSelection[slotIndex]) return;
+  if (ms.gumMap[slotIndex]) {
+    ms.gumRoute   = ms.gumRoute.filter(s => s !== slotIndex);
+    delete ms.gumMap[slotIndex];
+    ms.gumRoute.forEach((s, i) => { ms.gumMap[s] = i + 1; });
+    ms.gumCounter = ms.gumRoute.length;
+  } else {
+    ms.gumCounter++;
+    ms.gumMap[slotIndex] = ms.gumCounter;
+    ms.gumRoute.push(slotIndex);
+  }
+  renderGumCards();
+  const filled = ms.gumSelection.filter(Boolean);
+  if (filled.length > 0 && ms.gumRoute.length === filled.length) completeGumCycle();
+}
+
+function completeGumCycle() {
+  const ms    = getMS(currentMap.id);
+  const route = ms.gumRoute.map(i => ms.gumSelection[i]);
+  ms.gumHistory.unshift({ num: ms.gumCycleNum, gums: route });
+  if (ms.gumHistory.length > 20) ms.gumHistory.pop();
+  ms.gumCycleNum++;
+  ms.gumMap = {}; ms.gumRoute = []; ms.gumCounter = 0;
+  showToast('Gobblegum cycle complete!');
+  renderGumHistory();
+  renderGumSlots();
+}
+
+function resetGumCycle() {
+  const ms = getMS(currentMap.id);
+  ms.gumMap = {}; ms.gumRoute = []; ms.gumCounter = 0;
+  renderGumSlots();
+}
+
+
+function clearAllGum() {
+  const ms = getMS(currentMap.id);
+  ms.gumSelection = [null, null, null, null, null];
+  ms.gumMap = {}; ms.gumRoute = []; ms.gumCounter = 0; ms.gumCycleNum = 1; ms.gumHistory = [];
+  document.getElementById('gumHistWrap').classList.remove('open');
+  document.getElementById('btnGumHist').classList.remove('open');
+  document.getElementById('btnGumHist').innerHTML = '▼&ensp;Cycle History';
+  renderGumHistory();
+  renderGumSlots();
+}
+
+function renderGumHistory() {
+  const ms   = getMS(currentMap.id);
+  const list = document.getElementById('gumHistList');
+  document.getElementById('gumHistCnt').textContent = ms.gumHistory.length + ' cycle' + (ms.gumHistory.length !== 1 ? 's' : '');
+  if (!ms.gumHistory.length) {
+    list.innerHTML = '<div class="h-empty"><span>📋</span>No completed cycles yet</div>';
+    return;
+  }
+  list.innerHTML = '';
+  ms.gumHistory.forEach((entry, i) => {
+    const names = entry.gums.map(id => GUMS.find(g => g.id === id)?.name ?? id);
+    const routeHtml = names.map((n, idx) =>
+      `<span class="h-stop">${n}</span>` + (idx < names.length - 1 ? '<span class="h-arr">▶</span>' : '')
+    ).join('');
+    const el = document.createElement('div'); el.className = 'h-item'; el.style.animationDelay = (i * 0.04) + 's';
+    el.innerHTML = `<span class="h-num">#${entry.num}</span><div class="h-route">${routeHtml}</div>`;
+    list.appendChild(el);
+  });
+}
+
+document.getElementById('btnGumReset').addEventListener('click', resetGumCycle);
+document.getElementById('btnClearAllGum').addEventListener('click', clearAllGum);
+document.getElementById('btnGumHist').addEventListener('click', () => {
+  const wrap = document.getElementById('gumHistWrap');
+  const btn  = document.getElementById('btnGumHist');
+  const open = wrap.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.innerHTML = (open ? '▲' : '▼') + '&ensp;Cycle History';
+  if (open) renderGumHistory();
+});
+
 // ─── Section minimize ─────────────────────────────────────────────────────────
+let gumCollapsed        = false;
 let dropCollapsed       = false;
 let specialCollapsed    = false;
 let boxCollapsed        = false;
@@ -1277,6 +1567,9 @@ function toggleSection(bodyId, btnId, stateGetter, stateSetter) {
   document.getElementById(btnId).textContent = collapsed ? '▼' : '▲';
 }
 
+document.getElementById('btnMinGum').addEventListener('click', () =>
+  toggleSection('gumCycleBody', 'btnMinGum', () => gumCollapsed, v => gumCollapsed = v)
+);
 document.getElementById('btnMinDrop').addEventListener('click', () =>
   toggleSection('dropCycleBody', 'btnMinDrop', () => dropCollapsed, v => dropCollapsed = v)
 );
@@ -1327,8 +1620,8 @@ const FOCUS_EXTRA_OPTIONS = [
   { id:'c4',       label:'Combined Round Time',    bodyId:'calcBody',      openItem:'Combined Round Time' },
   { id:'c5',       label:'Average SPH',            bodyId:'calcBody',      openItem:'Average SPH' },
   { id:'insta',    label:'Instakill Rounds',       bodyId:'resourcesBody', openItem:'Instakill Rounds' },
-  { id:'instabug', label:'Instabug',               bodyId:'resourcesBody', openItem:'Instabug' },
-  { id:'nuke1p',   label:'Nuke Timing',            bodyId:'resourcesBody', openItem:'Nuke Timing' },
+  { id:'instabug', label:'Instabug',               bodyId:'resourcesBody', openItem:'Instabug',         games:['bo1','waw'] },
+  { id:'nuke1p',   label:'Nuke Timing',            bodyId:'resourcesBody', openItem:'Nuke Timing',      games:['bo1','waw'] },
 ];
 
 function getExtraInner(slot) {
@@ -1369,10 +1662,12 @@ function restoreFocusExtra() {
 }
 
 function getAvailableOptions(slot) {
-  const showRes = ['bo1','waw'].includes(currentMap?.game ?? 'bo1');
+  const game = currentMap?.game ?? 'bo1';
+  const showRes = ['bo1','waw','bo3'].includes(game);
   const usedBodies = focusExtraMoved.filter(Boolean).map(m => m.bodyId);
   return FOCUS_EXTRA_OPTIONS.filter(opt => {
     if (!showRes && opt.bodyId === 'resourcesBody') return false;
+    if (opt.games && !opt.games.includes(game)) return false;
     if (slot > 0 && usedBodies.includes(opt.bodyId)) return false;
     return true;
   });
@@ -1507,3 +1802,4 @@ function showToast(msg) {
 buildCalcSection();
 buildResources();
 buildGameSelector();
+
