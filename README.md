@@ -1,6 +1,6 @@
 # Zombies Tracker
 
-Web app para trackear partidas de Zombies de Call of Duty. Sin frameworks, sin dependencias externas — HTML, CSS y JavaScript puro. Todas las imágenes son locales.
+Web app para trackear partidas de Zombies de Call of Duty. Sin frameworks, sin dependencias externas — HTML, CSS y JavaScript puro
 
 ---
 

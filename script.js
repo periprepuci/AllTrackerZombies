@@ -388,12 +388,16 @@ const MAPS = [
 // ─── Game selector ───────────────────────────────────────────────────────────
 const GAMES = [
   { id:'waw', label:'World at War', num:'', year:'2008', available: true,
+    img: 'imagenes/juegos/worldatwar.jpg',
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(140,100,20,.55) 0%, rgba(5,4,2,.97) 65%)' },
   { id:'bo1', label:'Black Ops', num:'I',   year:'2010', available: true,
+    img: 'imagenes/juegos/blackops1.jpg',
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(200,30,30,.5) 0%, rgba(8,4,4,.97) 65%)' },
   { id:'bo2', label:'Black Ops', num:'II',  year:'2012', available: true,
+    img: 'imagenes/juegos/blackops2.jpeg',
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(20,130,150,.45) 0%, rgba(4,10,14,.97) 65%)' },
   { id:'bo3', label:'Black Ops', num:'III', year:'2015', available: true,
+    img: 'imagenes/juegos/blackops3.webp',
     gradient: 'radial-gradient(ellipse at 50% 0%, rgba(90,30,200,.45) 0%, rgba(5,4,16,.97) 65%)' },
 ];
 
@@ -403,7 +407,9 @@ function buildGameSelector() {
   GAMES.forEach(game => {
     const el = document.createElement('div');
     el.className = 'game-card' + (game.available ? '' : ' game-coming-soon');
-    el.style.background = game.gradient;
+    el.style.background = game.img
+      ? `${game.gradient}, url('${game.img}') center/cover no-repeat`
+      : game.gradient;
     el.innerHTML = `
       <div class="game-card-inner">
         ${game.num ? `<span class="game-num">${game.num}</span>` : ''}
